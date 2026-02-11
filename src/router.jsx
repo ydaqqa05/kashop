@@ -5,6 +5,7 @@ import Cart from "./pages/cart/Cart";
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/register/Register";
 import MainLayout from "./layout/MainLayout";
+import AuthLayout from "./layout/AuthLayout";
 
 export const router=createBrowserRouter([
     {
@@ -18,14 +19,21 @@ export const router=createBrowserRouter([
                 path:'/cart',
                 element:<Cart/>
             }
-            ,{
-                path:'/login',
-                element:<Login/>
-            }
-            ,{
-                path:'/register',
-                element:<Register/>
-            }
         ]
+    },
+    {
+        element: <AuthLayout />,
+        children: [
+          {
+            path: "/login",
+            element: <Login />,
+          },
+          {
+            path: "/register",
+            element: <Register />,
+          },
+        ],
+
     }
 ])
+
