@@ -1,4 +1,4 @@
-import {Box,Button,TextField,Typography,Checkbox,FormControlLabel,InputAdornment,IconButton,} from "@mui/material";
+import {Box,Button,TextField,Typography,Checkbox,FormControlLabel,InputAdornment,IconButton, CircularProgress,} from "@mui/material";
   import { Visibility, VisibilityOff } from "@mui/icons-material";
   import axios from "axios";
   import React, { useState } from "react";
@@ -9,18 +9,20 @@ import {Box,Button,TextField,Typography,Checkbox,FormControlLabel,InputAdornment
   import { Link } from "react-router-dom";
   
   export default function Register() {
+    const[serverErrors,setServerErrors]=useState([]);
     const [showPassword, setShowPassword] = useState(false);
   
-    const {register,handleSubmit,formState: { errors },} = useForm({
-      resolver: yupResolver(registerSchema),
+    const {register,handleSubmit,formState: { errors,isSubmitting },} = useForm({
+      resolver: yupResolver(registerSchema),mode:'onBlur'
     });
   
     const registerForm = async (values) => {
       try {
+        console.log(values);
         const response = await axios.post(`https://knowledgeshop.runasp.net/api/auth/Account/Register`,values);
         console.log(response);
       } catch (error) {
-        console.log(error.response?.data);
+setServerErrors(error.response.data.errors)
       }
     };
   
@@ -35,10 +37,17 @@ import {Box,Button,TextField,Typography,Checkbox,FormControlLabel,InputAdornment
           <Box width="100%" maxWidth={400}>
      
             <Typography variant="h4" fontWeight="bold">Sign up</Typography>
-            
+            {serverErrors?.length > 0 && (
+              <Box mt={2} color={'red'}>
+                {serverErrors.map((err)=><Typography>
+                  {err}
+                </Typography>)}
+              </Box>
+            )}
             <Typography variant="body2" mt={1} mb={3}>
               Already have an account?{" "}
               <Link to="/login" style={{ color: "#4caf50", textDecoration: "none" }}> Sign in </Link>
+
             </Typography>
   
             <Box component="form" display="flex" flexDirection="column" gap={3}
@@ -61,11 +70,15 @@ import {Box,Button,TextField,Typography,Checkbox,FormControlLabel,InputAdornment
                   ),
                 }}
               />
+              <TextField {...register("phoneNumber")} label="Phone number" variant="standard"
+  fullWidth error={errors.phoneNumber}
+  helperText={errors.phoneNumber?.message}
+/>
               <FormControlLabel control={<Checkbox />} 
               label={ <Typography variant="body2"> I agree with <b>Privacy Policy</b> and <b>Terms of Use</b>
                   </Typography>}/>
               <Button type="submit" variant="contained" fullWidth sx={{ backgroundColor: "#111", py: 1.5,
-              borderRadius: 2,"&:hover": { backgroundColor: "#000",},}}> Sign Up</Button>
+              borderRadius: 2,"&:hover": { backgroundColor: "#000",},}} disabled={isSubmitting}> {isSubmitting ? <CircularProgress/>:'Sign In' }</Button>
             </Box>
           </Box>
         </Box>
