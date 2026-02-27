@@ -12,6 +12,6 @@ export default function Categories() {
         return <Box color={'red'}>{error.message}</Box>
  console.log(data);
   return (
-    <Box> {data.response.map(category=><Box>{category.name}</Box>)}</Box>
+    <Box> {data.response.data.map(category=><Box>{category.name}</Box>)}</Box>
   )
 }

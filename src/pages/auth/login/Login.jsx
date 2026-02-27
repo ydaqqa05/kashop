@@ -12,11 +12,14 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 export default function Login() {
      const [showPassword, setShowPassword] = useState(false);
     const {register,handleSubmit,formState: { errors }} =useForm({
-        resolver: yupResolver(loginSchema),
+        resolver: yupResolver(loginSchema),mode:'onBlur'
     })
     const loginForm=async (values)=>{
         try{
 const response=await axios.post(`https://knowledgeshop.runasp.net/api/auth/Account/Login`,values)
+if(response.status ==200){
+  localStorage.setItem("accessToken",response.data.accessToken)
+}
 console.log(response);
         }catch(error){
             console.log(error.response?.data);
