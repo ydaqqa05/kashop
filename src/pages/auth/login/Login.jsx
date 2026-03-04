@@ -5,11 +5,15 @@ import sofa from "../../../assets/image/sofa.webp";
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { loginSchema } from '../../../validation/LoginSchema'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useAuthStore } from '../../../store/useAuthStore';
 
 
 export default function Login() {
+  const setToken=useAuthStore((state)=>state.setToken)
+
+  const navigate=useNavigate()
      const [showPassword, setShowPassword] = useState(false);
     const {register,handleSubmit,formState: { errors }} =useForm({
         resolver: yupResolver(loginSchema),mode:'onBlur'
@@ -18,7 +22,9 @@ export default function Login() {
         try{
 const response=await axios.post(`https://knowledgeshop.runasp.net/api/auth/Account/Login`,values)
 if(response.status ==200){
-  localStorage.setItem("accessToken",response.data.accessToken)
+  console.log(response)
+  setToken(response.data.accessToken)
+  navigate('/')
 }
 console.log(response);
         }catch(error){

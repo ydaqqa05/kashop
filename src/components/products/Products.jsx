@@ -3,6 +3,7 @@ import useProducts from '../../hooks/useProducts';
 import React from 'react';
 import Loader from '../../ui/loader/Loader';
 import { Link } from 'react-router-dom';
+import Product from '../../ui/product/Product';
 
 export default function Products() {
        const {data,isError,isLoading,error}=useProducts();
@@ -19,14 +20,7 @@ export default function Products() {
             
             {data.response.data.map(product=>
                 <Grid item size={{xs:12,sm:6,md:4}}>
-<Link to={`/product/${product.id}`}><Card sx={{py:3,textAlign:'center'}}>
-    <CardMedia component={'img'} image={product.image}></CardMedia>
-    <CardContent>
-        <Typography component={'h3'}>{product.name}</Typography>
-        <Typography component={'span'} variant='body1'>{product.price}$</Typography>
-       </CardContent>
-
-   </Card></Link>
+<Product product={product}/>
                     </Grid>
                 )}</Grid>
        </Box>

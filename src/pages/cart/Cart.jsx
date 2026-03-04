@@ -1,6 +1,6 @@
 import React from 'react'
 import useCart from '../../hooks/useCart'
-import Categories from '../../components/categories/Categories';
+import Categories from '../../components/categories/CategoriesSection';
 
 export default function Cart() {
   const {data,isError,isLoading}=useCart();

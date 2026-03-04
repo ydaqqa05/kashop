@@ -7,6 +7,7 @@ import Register from "./pages/auth/register/Register";
 import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 import ProductDetails from "./pages/products/ProductDetails";
+import CategoriesPage from "./pages/categories/CategoriesPage";
 
 export const router=createBrowserRouter([
     {
@@ -20,6 +21,10 @@ export const router=createBrowserRouter([
                 path:'/cart',
                 element:<Cart/>
             }
+            ,{
+              path:'/categories',
+              element:<CategoriesPage/>
+          }
             ,{
               path:'/Product/:id',
               element:<ProductDetails/>

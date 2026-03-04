@@ -3,10 +3,10 @@ import axios from 'axios'
 import React from 'react'
 import axiosInstance from '../api/axiosInstance'
 
-export default function useCategories() {
+export default function useCategories(limit=4) {
     const getCategories= async()=>{
      
-        const response=await axiosInstance.get(`/Categories?limit=10`,{
+        const response=await axiosInstance.get(`/Categories?limit=${limit}`,{
            
         })
        return response.data
@@ -14,7 +14,7 @@ export default function useCategories() {
       
     } 
    const query =useQuery({
-  queryKey:['categories','en'],
+  queryKey:['categories','en',limit],
   queryFn:getCategories,
   staleTime:1000*60*5
    });
