@@ -1,13 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, Checkbox, FormControlLabel, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 import axios from 'axios'
-import sofa from "../../../assets/image/sofa.webp";
+
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { loginSchema } from '../../../validation/LoginSchema'
 import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAuthStore } from '../../../store/useAuthStore';
+import axiosInstance from '../../../api/axiosInstance';
+import LeftSide from '../../../components/authSide/LeftSide';
 
 
 export default function Login() {
@@ -20,7 +22,7 @@ export default function Login() {
     })
     const loginForm=async (values)=>{
         try{
-const response=await axios.post(`https://knowledgeshop.runasp.net/api/auth/Account/Login`,values)
+const response=await axiosInstance.post(`auth/Account/Login`,values)
 if(response.status ==200){
   console.log(response)
   setToken(response.data.accessToken)
@@ -33,11 +35,7 @@ console.log(response);
     }
     return (
         <Box display="flex" flexDirection={{ xs: "column", sm: "row" }} minHeight="100vh">
-          <Box flex={1} display="flex" position={'relative'}>
-          <Typography variant="h6" fontWeight="bold" mb={4} position={'absolute'} left={'50%'} >  3legant.  </Typography>
-            <Box component="img" src={sofa} alt="sofa"
-              sx={{ width: "100%",height: "100vh",objectFit: "cover",}}/>
-          </Box>
+          <LeftSide/>
           <Box flex={1} display="flex" justifyContent="center" alignItems="center"p={4}>
             <Box width="100%" maxWidth={400}>
        
@@ -70,7 +68,7 @@ console.log(response);
                 label={ <Typography variant="body2" style={{color:"#6C7275"}}> Remember me
                     </Typography>}/>
                     <Link
-    to=""
+    to="/forgetpassword"
     style={{
       textDecoration: "none",
       fontSize: "14px",

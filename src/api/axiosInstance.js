@@ -1,9 +1,14 @@
 import axios from "axios";
-
-const axiosInstance= axios.create({
+import i18n from "../i18next";
+export const axiosInstance= axios.create({
     baseURL:'https://knowledgeshop.runasp.net/api',
-    headers:{
-        "Accept-Language":"en"
-    }
+    withCredentials:true,
+    
+});
+
+axiosInstance.interceptors.request.use((config)=>{
+    config.headers["Accept-Language"] = i18n.language
+    console.log(config)
+    return config
 })
 export default axiosInstance

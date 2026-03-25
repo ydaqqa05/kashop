@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import useCategories from '../../hooks/useCategories';
 import Loader from '../../ui/loader/Loader';
 import Category from '../../ui/category/Category';
-
+import { useTranslation } from 'react-i18next';
 export default function CategoriesPage() {
     const {data,isLoading,isError,error}=useCategories(10);
+      const {t}=useTranslation()
     if(isLoading)
        return <Loader/>
     if(isError)
@@ -14,13 +15,13 @@ export default function CategoriesPage() {
   return (
    <>
    <Box className="categories" py={3}> 
-     <Typography component={'h2'} variant='h4' mb={2}>Categories</Typography>
+     <Typography component={'h2'} variant='h4' mb={2}>{t('Categories')}</Typography>
 
 
      <Grid container spacing={3}>
       
          {data.response.data.map(category=>
-           <Grid item size={{xs:12,sm:6,md:4,lg:3}}>
+           <Grid item size={{xs:12,sm:6,md:4,lg:3}} key={category.id}>
              <Category category={category}/> </Grid>
            )}
       

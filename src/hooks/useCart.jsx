@@ -5,9 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 export default function useCart() {
     const getItems= async()=>{
      
-        const response=await authaxiosInstance.get(`/Carts`,{
-           
-        })
+        const response=await authaxiosInstance.get(`/Carts`)
+     console.log(response)
        return response.data
         
       

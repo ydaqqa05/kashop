@@ -6,8 +6,10 @@ import useCategories from '../../hooks/useCategories';
 import Loader from '../../ui/loader/Loader';
 import { Link } from 'react-router-dom';
 import Category from '../../ui/category/Category';
+import { useTranslation } from 'react-i18next';
 export default function Categories() {
   const {data,isLoading,isError,error}=useCategories();
+  const {t}=useTranslation()
      if(isLoading)
         return <Loader/>
      if(isError)
@@ -19,14 +21,14 @@ export default function Categories() {
    
 
     <Box className="categories" py={3}> 
-      <Typography component={'h2'} variant='h4' mb={2}>Categories</Typography>
+      <Typography component={'h2'} variant='h4' mb={2}>{t('Categories')}</Typography>
 <Link to='/categories'>Show More</Link>
 
 
       <Grid container spacing={3}>
        
           {data.response.data.map(category=>
-            <Grid item size={{xs:12,sm:6,md:4,lg:3}}> 
+            <Grid item size={{xs:12,sm:6,md:4,lg:3}} key={category.id}> 
           <Category category={category}/> </Grid>
             )}
        

@@ -7,6 +7,7 @@ import {Box,Button,TextField,Typography,Checkbox,FormControlLabel,InputAdornment
   import { registerSchema } from "../../../validation/RegisterSchema";
   import sofa from "../../../assets/image/sofa.webp";
   import { Link } from "react-router-dom";
+import LeftSide from "../../../components/authSide/LeftSide";
   
   export default function Register() {
     const[serverErrors,setServerErrors]=useState([]);
@@ -28,11 +29,7 @@ setServerErrors(error.response.data.errors)
   
     return (
       <Box display="flex" flexDirection={{ xs: "column", sm: "row" }} minHeight="100vh">
-        <Box flex={1} display="flex" position={'relative'}>
-        <Typography variant="h6" fontWeight="bold" mb={4} position={'absolute'} left={'50%'} >  3legant.  </Typography>
-          <Box component="img" src={sofa} alt="sofa"
-            sx={{ width: "100%",height: "100vh",objectFit: "cover",}}/>
-        </Box>
+       <LeftSide/>
         <Box flex={1} display="flex" justifyContent="center" alignItems="center"p={4}>
           <Box width="100%" maxWidth={400}>
      

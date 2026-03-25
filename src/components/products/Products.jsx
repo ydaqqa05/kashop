@@ -4,9 +4,11 @@ import React from 'react';
 import Loader from '../../ui/loader/Loader';
 import { Link } from 'react-router-dom';
 import Product from '../../ui/product/Product';
+import { useTranslation } from 'react-i18next';
 
 export default function Products() {
        const {data,isError,isLoading,error}=useProducts();
+       const {t}=useTranslation()
        console.log(data)
        if(isLoading)
         return <Loader/>
@@ -15,7 +17,7 @@ export default function Products() {
        
   return (
       <Box className="products" py={3}>
-        <Typography component={'h2'} variant='h4' mb={2}>Products</Typography>
+        <Typography component={'h2'} variant='h4' mb={2}>{t('Products')}</Typography>
         <Grid container spacing={4}>  
             
             {data.response.data.map(product=>

@@ -8,6 +8,13 @@ import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 import ProductDetails from "./pages/products/ProductDetails";
 import CategoriesPage from "./pages/categories/CategoriesPage";
+import ProtectedRouter from "./ProtectedRouter";
+import Checkout from "./pages/checkout/Checkout";
+import Profile from "./pages/profile/Profile";
+import ProfileInfo from "./pages/profile/ProfileInfo";
+import ProfileOrders from "./pages/profile/ProfileOrders";
+import ForgetPassword from "./pages/auth/forgetPassword/ForgetPassword";
+import Verify from "./pages/auth/verify/Verify";
 
 export const router=createBrowserRouter([
     {
@@ -18,15 +25,36 @@ export const router=createBrowserRouter([
                 index:true,
                 element:<Home/>
             },{
-                path:'/cart',
-                element:<Cart/>
-            }
-            ,{
-              path:'/categories',
+                path:'cart',
+                element:
+                <ProtectedRouter>
+                <Cart/></ProtectedRouter>
+            },
+            {
+              path:'checkout',
+              element:
+              <ProtectedRouter>
+              <Checkout/></ProtectedRouter>
+          },
+          {
+            path:'profile',
+            element:
+            <ProtectedRouter>
+            <Profile/></ProtectedRouter>,
+            children:[{
+              index:true,
+              element:<ProfileInfo/>
+            },{
+              path:'orders',
+              element:<ProfileOrders/>
+            }]
+        },
+            {
+              path:'categories',
               element:<CategoriesPage/>
           }
             ,{
-              path:'/Product/:id',
+              path:'Product/:id',
               element:<ProductDetails/>
           }
         ]
@@ -35,12 +63,20 @@ export const router=createBrowserRouter([
         element: <AuthLayout />,
         children: [
           {
-            path: "/login",
+            path: "login",
             element: <Login />,
           },
           {
-            path: "/register",
+            path: "register",
             element: <Register />,
+          },
+          {
+            path: "forgetpassword",
+            element: <ForgetPassword />,
+          },
+          {
+            path: "verify",
+            element: <Verify />,
           },
         ],
 
