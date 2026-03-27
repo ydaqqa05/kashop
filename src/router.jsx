@@ -15,6 +15,7 @@ import ProfileInfo from "./pages/profile/ProfileInfo";
 import ProfileOrders from "./pages/profile/ProfileOrders";
 import ForgetPassword from "./pages/auth/forgetPassword/ForgetPassword";
 import Verify from "./pages/auth/verify/Verify";
+import HomePage from "./pages/home/HomePage";
 
 export const router=createBrowserRouter([
     {
@@ -24,7 +25,12 @@ export const router=createBrowserRouter([
             {
                 index:true,
                 element:<Home/>
-            },{
+            },
+            {
+              path:'homePage',
+              element:<HomePage/>
+          },
+            {
                 path:'cart',
                 element:
                 <ProtectedRouter>
@@ -56,7 +62,7 @@ export const router=createBrowserRouter([
             ,{
               path:'Product/:id',
               element:<ProductDetails/>
-          }
+          },
         ]
     },
     {

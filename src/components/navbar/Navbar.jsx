@@ -33,11 +33,11 @@ navigate('/login')
   const toggleTheme=useThemeStore((state)=>state.toggleTheme)
     return (
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
+          <AppBar position="static" color='#FFFFFF'>
             <Toolbar>
              
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-               KASHOP 
+              <Typography variant="h5" component="div" sx={{ flexGrow: 1,fontWeight:'bold' }}>
+              3legant.
               </Typography>
              <Button onClick={changeLanguage} color='inherit'>
               {i18n.language === "ar"?"EN":"AR"}
