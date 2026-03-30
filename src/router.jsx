@@ -16,6 +16,7 @@ import ProfileOrders from "./pages/profile/ProfileOrders";
 import ForgetPassword from "./pages/auth/forgetPassword/ForgetPassword";
 import Verify from "./pages/auth/verify/Verify";
 import HomePage from "./pages/home/HomePage";
+import ResetPassword from "./pages/auth/resetPassword/ResetPassword";
 
 export const router=createBrowserRouter([
     {
@@ -80,9 +81,14 @@ export const router=createBrowserRouter([
             path: "forgetpassword",
             element: <ForgetPassword />,
           },
+          
           {
             path: "verify",
             element: <Verify />,
+          },
+          {
+            path: "resetpassword",
+            element: <ResetPassword />,
           },
         ],
 

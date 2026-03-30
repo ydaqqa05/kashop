@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from "react-router-dom";
 import LeftSide from '../../../components/authSide/LeftSide';
@@ -8,28 +8,26 @@ import useForgetPassword from '../../../hooks/useForgetPassword'
 import { forgetPasswordSchema } from '../../../validation/ForgetPasswordSchema'
 
 export default function ForgetPassword() {
-
-  const navigate = useNavigate()
+  const [otp, setOtp] = useState(["", "", "", ""]);
+  const navigate=useNavigate();
+  const inputRefs = useRef([]);
 const [time,setTime]=useState(90)
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(forgetPasswordSchema),
-    mode: 'onBlur'
-  })
+ 
+const handleSubmitForm = () => {
+  const code = otp.join("");
 
-  const { mutate: sendCode, isPending } = useForgetPassword()
-
-  const ForgotPasswordForm = (values) => {
-    sendCode(values.email, {
-      onSuccess: () => navigate('/verify'),
-      onError: (error) => console.log(error.response?.data)
-    })
+  if (code.length === 4 && !otp.includes("")) {
+    navigate("/resetpassword");
   }
+};
+
   const minutes = Math.floor(time / 60);
 const seconds = time % 60;
 const resendOTP=()=>{
   setTime(90)
 };
 useEffect(() => {
+  console.log(otp.join(""));
   if (time <= 0) return;
 
   const interval = setInterval(() => {
@@ -77,32 +75,64 @@ useEffect(() => {
             display="flex"
             flexDirection="column"
             gap={3}
-            onSubmit={handleSubmit(ForgotPasswordForm)}
+          
           >
-            <TextField
-              {...register("code")}
-              fullWidth
-              placeholder="Email address"
-              variant="outlined"
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '12px',
-                  background: '#fff',
-                  '& fieldset': {
-                    borderColor: '#e5e7eb',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#9ca3af',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#111827',
-                  },
-                },
-              }}
-            />
-
+            <Box
+      display="flex"
+      justifyContent="center"
+      gap={2}
+    >
+      {[...Array(4)].map((_, index) => (
+        <TextField
+          key={index}
+          value={otp[index]}
+          variant="outlined"
+          onKeyDown={(e) => {
+           if(e.key==="ArrowLeft" && index>0)
+           {
+            inputRefs.current[index-1].focus();
+           }
+           else if(e.key==="ArrowRight" && index<3)
+            {
+             inputRefs.current[index+1].focus();
+            }
+            if (e.key === "Backspace") {
+              const newOtp=[...otp];
+               if(otp[index]){
+                newOtp[index]=""
+                setOtp(newOtp)
+              }
+              else if ( index > 0) {
+                inputRefs.current[index - 1].focus();
+              }
+              
+             
+            }
+          }}
+          inputRef={(el)=>(inputRefs.current[index]=el)}
+          onChange={(e) => {
+             if (!/^[0-9]?$/.test(e.target.value)) return;
+            const newOtp = [...otp];
+            newOtp[index] = e.target.value;
+            setOtp(newOtp);
+           
+            if (e.target.value && index < 3) {
+              inputRefs.current[index + 1].focus();
+            }
+          }}
+          inputProps={{
+            maxLength: 1,
+            style: {
+              textAlign: "center",
+              fontSize: "20px",
+              width: "50px",
+              height: "50px",
+            },
+          }}
+        />
+      ))}
+    </Box>
+  
 <Typography
             variant="body2"
             sx={{ mb: 4, color: '#6b7280', lineHeight: 1.6,fontSize:"16px"}}
@@ -127,13 +157,14 @@ useEffect(() => {
             <Button
               type="submit"
               fullWidth
-              disabled={isPending}
+              onClick={handleSubmitForm}
               sx={{
                 py: 1.6,
                 borderRadius: '12px',
                 fontWeight: '600',
                 fontSize: '1rem',
                 color: '#fff',
+                
                 background: 'linear-gradient(90deg, #111827, #1f2937)',
                 textTransform: 'none',
                 transition: '0.3s',
@@ -142,7 +173,7 @@ useEffect(() => {
                 },
               }}
             >
-              {isPending ? "Sending..." : "Send Code"}
+             Verify
             </Button>
 
           </Box>

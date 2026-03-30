@@ -130,7 +130,7 @@ export default function ResponsiveAppBar() {
         </Container>
       </AppBar>
 
-      {/* 🔥 DRAWER */}
+      
       <Drawer
         anchor="left"
         open={openDrawer}
@@ -138,7 +138,7 @@ export default function ResponsiveAppBar() {
       >
         <Box sx={{ width: 260, p: 2 }}>
 
-          {/* 🔹 Header */}
+          
           <Box
             sx={{
               display: "flex",
@@ -155,7 +155,7 @@ export default function ResponsiveAppBar() {
 
           <Divider />
 
-          {/* 🔹 Pages */}
+         
           <List>
             {pages.map((page) => (
               <ListItem
@@ -181,10 +181,10 @@ export default function ResponsiveAppBar() {
 
           <Divider sx={{ my: 2 }} />
 
-          {/* 🔹 Extra (optional) */}
+          
           <List>
             <ListItem sx={{ cursor: "pointer" }}>
-              <ListItemText primary="Login" />
+              <ListItemText primary="Login"  />
             </ListItem>
             <ListItem sx={{ cursor: "pointer" }}>
               <ListItemText primary="Register" />
