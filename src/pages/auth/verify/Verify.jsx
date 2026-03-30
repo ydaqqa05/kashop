@@ -15,9 +15,11 @@ const [time,setTime]=useState(90)
  
 const handleSubmitForm = () => {
   const code = otp.join("");
-
+localStorage.setItem("otp",code)
   if (code.length === 4 && !otp.includes("")) {
-    navigate("/resetpassword");
+    navigate("/resetpassword",{
+      state:{code}
+    });
   }
 };
 
@@ -75,7 +77,10 @@ useEffect(() => {
             display="flex"
             flexDirection="column"
             gap={3}
-          
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmitForm();
+            }}
           >
             <Box
       display="flex"
@@ -157,7 +162,7 @@ useEffect(() => {
             <Button
               type="submit"
               fullWidth
-              onClick={handleSubmitForm}
+              
               sx={{
                 py: 1.6,
                 borderRadius: '12px',
