@@ -2,16 +2,17 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LeftSide from '../../../components/authSide/LeftSide';
 import useForgetPassword from '../../../hooks/useForgetPassword'
 import { forgetPasswordSchema } from '../../../validation/ForgetPasswordSchema'
 
 export default function ForgetPassword() {
-
+const location=useLocation()
+const email=location.state?.email||localStorage.getItem("email")||""
   const navigate = useNavigate()
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit,watch, formState: { errors } } = useForm({
     resolver: yupResolver(forgetPasswordSchema),
     mode: 'onBlur'
   })
@@ -20,7 +21,7 @@ export default function ForgetPassword() {
 
   const ForgotPasswordForm = (values) => {
     sendCode(values.email, {
-      onSuccess: () => navigate('/verify'),
+      onSuccess: () => navigate('/verify',{state:email}),
       onError: (error) => console.log(error.response?.data)
     })
   }
@@ -68,6 +69,7 @@ export default function ForgetPassword() {
             <TextField
               {...register("email")}
               fullWidth
+              defaultValue={email}
               placeholder="Email address"
               variant="outlined"
               error={!!errors.email}
@@ -94,13 +96,12 @@ export default function ForgetPassword() {
               disabled={isPending}
               sx={{
                 py: 1.6,
-                borderRadius: '12px',
+                borderRadius: '8px',
                 fontWeight: '600',
                 fontSize: '1rem',
                 color: '#fff',
                 background: 'linear-gradient(90deg, #111827, #1f2937)',
                 textTransform: 'none',
-                transition: '0.3s',
                 '&:hover': {
                   background: 'linear-gradient(90deg, #000000, #111827)',
                 },

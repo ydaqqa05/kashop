@@ -3,7 +3,7 @@ import { Box, Button, Checkbox, FormControlLabel, IconButton, InputAdornment, Te
 import axios from 'axios'
 
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Watch } from 'react-hook-form'
 import { loginSchema } from '../../../validation/LoginSchema'
 import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -15,15 +15,18 @@ import LeftSide from '../../../components/authSide/LeftSide';
 export default function Login() {
   const setToken=useAuthStore((state)=>state.setToken)
 
+
   const navigate=useNavigate()
      const [showPassword, setShowPassword] = useState(false);
-    const {register,handleSubmit,formState: { errors }} =useForm({
+    const {register,handleSubmit,watch,formState: { errors }} =useForm({
         resolver: yupResolver(loginSchema),mode:'onBlur'
     })
+     const email = watch("email");
     const loginForm=async (values)=>{
         try{
 const response=await axiosInstance.post(`auth/Account/Login`,values)
 if(response.status ==200){
+ 
   console.log(response)
   setToken(response.data.accessToken)
   navigate('/')
@@ -69,6 +72,8 @@ console.log(response);
                     </Typography>}/>
                     <Link
     to="/forgetpassword"
+    state={{email}}
+    onClick={() => localStorage.setItem("email", email)}
     style={{
       textDecoration: "none",
       fontSize: "14px",
@@ -79,8 +84,16 @@ console.log(response);
     Forgot password?
   </Link>
                     </Box>
-                <Button type="submit" variant="contained" fullWidth sx={{ backgroundColor: "#111", py: 1.5,
-                borderRadius: 2,"&:hover": { backgroundColor: "#000",},}}> Sign In</Button>
+                <Button type="submit" variant="contained" fullWidth sx={{py: 1.6,
+  borderRadius: '8px',
+  fontWeight: '600',
+  fontSize: '1rem',
+  color: '#fff',
+  background: 'linear-gradient(90deg, #111827, #1f2937)',
+  textTransform: 'none',
+  '&:hover': {
+    background: 'linear-gradient(90deg, #000000, #111827)',
+  },}}> Sign In</Button>
               </Box>
             </Box>
           </Box>

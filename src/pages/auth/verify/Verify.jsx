@@ -2,12 +2,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LeftSide from '../../../components/authSide/LeftSide';
 import useForgetPassword from '../../../hooks/useForgetPassword'
 import { forgetPasswordSchema } from '../../../validation/ForgetPasswordSchema'
 
 export default function ForgetPassword() {
+  const location=useLocation()
+  const email =location.state?.email || localStorage.getItem("email");
   const [otp, setOtp] = useState(["", "", "", ""]);
   const navigate=useNavigate();
   const inputRefs = useRef([]);
@@ -18,7 +20,7 @@ const handleSubmitForm = () => {
 localStorage.setItem("otp",code)
   if (code.length === 4 && !otp.includes("")) {
     navigate("/resetpassword",{
-      state:{code}
+      state:{code,email}
     });
   }
 };
@@ -162,17 +164,17 @@ useEffect(() => {
             <Button
               type="submit"
               fullWidth
-              
+
               sx={{
                 py: 1.6,
-                borderRadius: '12px',
+                borderRadius: '8px',
                 fontWeight: '600',
                 fontSize: '1rem',
                 color: '#fff',
-                
+
                 background: 'linear-gradient(90deg, #111827, #1f2937)',
                 textTransform: 'none',
-                transition: '0.3s',
+
                 '&:hover': {
                   background: 'linear-gradient(90deg, #000000, #111827)',
                 },

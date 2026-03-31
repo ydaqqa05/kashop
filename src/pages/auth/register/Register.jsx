@@ -74,8 +74,16 @@ setServerErrors(error.response.data.errors)
               <FormControlLabel control={<Checkbox />} 
               label={ <Typography variant="body2"> I agree with <b>Privacy Policy</b> and <b>Terms of Use</b>
                   </Typography>}/>
-              <Button type="submit" variant="contained" fullWidth sx={{ backgroundColor: "#111", py: 1.5,
-              borderRadius: 2,"&:hover": { backgroundColor: "#000",},}} disabled={isSubmitting}> {isSubmitting ? <CircularProgress/>:'Sign In' }</Button>
+              <Button type="submit" variant="contained" fullWidth sx={{ py: 1.6,
+  borderRadius: '8px',
+  fontWeight: '600',
+  fontSize: '1rem',
+  color: '#fff',
+  background: 'linear-gradient(90deg, #111827, #1f2937)',
+  textTransform: 'none',
+  '&:hover': {
+    background: 'linear-gradient(90deg, #000000, #111827)',
+  },}} disabled={isSubmitting}> {isSubmitting ? <CircularProgress/>:'Sign In' }</Button>
             </Box>
           </Box>
         </Box>
