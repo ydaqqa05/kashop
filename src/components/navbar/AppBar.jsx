@@ -10,9 +10,16 @@ import search from '../../assets/image/search 02.svg'
 import profile from '../../assets/image/user-circle.svg'
 import cart from '../../assets/image/shopping bag.svg'
 import { useState } from "react";
-const pages = ["Home", "Shop", "Product", "Contact Us"];
+import { useNavigate } from "react-router-dom";
+const pages = [
+    { name: "Home", path: "/" },
+    { name: "Shop", path: "/shop" },
+    { name: "Product", path: "/product" },
+    { name: "Contact Us", path: "/contact" }
+  ];
 
 export default function ResponsiveAppBar() {
+    const navigate=useNavigate()
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const toggleDrawer = (state) => {
@@ -68,32 +75,19 @@ export default function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <Button
-                  key={page}
-                  sx={{
-                    color: "#6b7280",
-                    fontWeight: 500,
-                    textTransform: "none",
-                    position: "relative",
-                     whiteSpace: 'nowrap',
-                    "&:hover": {
-                      color: "#000"
-                    },
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      width: "0%",
-                      height: "2px",
-                      bottom: 0,
-                      left: 0,
-                      backgroundColor: "#000",
-                      transition: "0.3s"
+                  key={page.name}
+                  onClick={()=>navigate(page.path)}
+                  sx={{color: "#6b7280",fontWeight: 500,textTransform: "none",
+                    position: "relative",whiteSpace: 'nowrap',"&:hover": { color: "#000"},
+                    "&::after": {content: '""',position: "absolute",width: "0%",
+                      height: "2px",bottom: 0,left: 0,backgroundColor: "#000",transition: "0.3s"
                     },
                     "&:hover::after": {
                       width: "100%"
                     }
                   }}
                 >
-                  {page}
+                  {page.name}
                 </Button>
               ))}
             </Box>
@@ -107,16 +101,16 @@ export default function ResponsiveAppBar() {
                 gap: 1
               }}
             >
-              <IconButton>
+              <IconButton >
                 <Box component={'img'} src={search}/>
               </IconButton>
 
-              <IconButton>
-              <Box component={'img'} src={profile}/>
+              <IconButton onClick={()=>navigate('/profile')}>
+              <Box component={'img'} src={profile}  />
               </IconButton>
 
-              <IconButton sx={{display:'flex',gap:2}}>
-              <Box component={'img'} src={cart}/> 
+              <IconButton sx={{display:'flex',gap:2}} onClick={()=>navigate('/cart')}>
+              <Box component={'img'} src={cart}  /> 
               <Badge badgeContent={2}  sx={{
     "& .MuiBadge-badge": {
       backgroundColor: "black",

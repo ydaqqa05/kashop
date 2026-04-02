@@ -11,7 +11,7 @@ export default function MainLayout() {
     <>
       <PromoBar />
       <MenuAppBar />
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Outlet />
       </Container>
 

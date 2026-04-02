@@ -53,7 +53,7 @@ useEffect(() => {
         alignItems="center"
         sx={{ background: '#f9fafb',textAlign:'center' }}
       >
-        <Box width="100%" maxWidth={420} px={3}>
+        <Box width="100%" maxWidth={420} p={4}>
 
          
           <Typography

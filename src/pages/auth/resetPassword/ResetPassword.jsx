@@ -51,7 +51,7 @@ export default function ResetPassword() {
   return (
     <Box display="flex" flexDirection={{ xs: "column", sm: "row" }} minHeight="100vh">
           <LeftSide/>
-          <Box flex={1} display="flex" justifyContent="center" alignItems="center"p={4}>
+          <Box flex={1} display="flex" justifyContent="center" alignItems="center" p={4}>
             <Box width="100%" maxWidth={400}>
        
               <Typography variant="h4" fontWeight="bold" sx={{mb:1}}>Reset Password</Typography>

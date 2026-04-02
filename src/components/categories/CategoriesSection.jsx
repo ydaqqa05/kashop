@@ -28,7 +28,7 @@ export default function Categories() {
       <Grid container spacing={3}>
        
           {data.response.data.map(category=>
-            <Grid item size={{xs:12,sm:6,md:4,lg:3}} key={category.id}> 
+            <Grid item size={{xs:12,sm:6,md:4,lg:3}} key={category.id} > 
           <Category category={category}/> </Grid>
             )}
        
