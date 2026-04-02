@@ -9,28 +9,91 @@ import Category from '../../ui/category/Category';
 import { useTranslation } from 'react-i18next';
 export default function Categories() {
   const {data,isLoading,isError,error}=useCategories();
+
   const {t}=useTranslation()
      if(isLoading)
         return <Loader/>
      if(isError)
         return <Box color={'red'}>{error.message}</Box>
 
- console.log(data);
+ const categories=data.response.data
   return (<>
-  <hr/>
+  
    
 
-    <Box className="categories" py={3}> 
-      <Typography component={'h2'} variant='h4' mb={2}>{t('Categories')}</Typography>
-<Link to='/categories'>Show More</Link>
-
-
-      <Grid container spacing={3}>
-       
-          {data.response.data.map(category=>
-            <Grid item size={{xs:12,sm:6,md:4,lg:3}} key={category.id} > 
-          <Category category={category}/> </Grid>
-            )}
+    <Box className="categories" py={4} maxWidth="1200px" mx="auto" > 
+      <Grid container spacing={2}>
+       <Grid item size={{xs:12,md:6}}>
+        <Box sx={{position:'relative',height:"100%",minHeight:400,overflow:"hidden",borderRadius:2}}>
+        <Box component={'img'} src={categories[0]?.image} alt={categories[0]?.name} 
+        sx={{ width: "100%", height: "100%",objectFit: "cover",}}/>
+        <Box sx={{position:'absolute',top:30,left:30}} >
+          <Typography variant='h5' fontWeight={500}>{categories[0]?.name}</Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+                  Shop Now →
+                </Typography>
+        </Box>
+        
+        </Box>
+        </Grid>
+         <Grid item size={{xs:12,md:6}}>
+          <Grid container spacing={2}>
+            <Grid item size={{xs:12}}>
+              <Box  sx={{
+                    position: "relative",
+                    height: 190,
+                    overflow: "hidden",
+                    borderRadius: 2,
+                  }}>
+                     <Box
+                    component="img"
+                    src={categories[1]?.image}
+                    alt={categories[1]?.name}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Box sx={{ position: "absolute", top: 20, left: 20 }}>
+                    <Typography variant="h6">
+                      {categories[1]?.name}
+                    </Typography>
+                    <Typography variant="body2" mt={1}>
+                      Shop Now →
+                    </Typography>
+                  </Box>
+                  </Box>
+            </Grid>
+            <Grid item size={{xs:12}}>
+              <Box  sx={{
+                    position: "relative",
+                    height: 190,
+                    overflow: "hidden",
+                    borderRadius: 2,
+                  }}>
+                     <Box
+                    component="img"
+                    src={categories[2]?.image}
+                    alt={categories[2]?.name}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Box sx={{ position: "absolute", top: 20, left: 20 }}>
+                    <Typography variant="h6">
+                      {categories[2]?.name}
+                    </Typography>
+                    <Typography variant="body2" mt={1}>
+                      Shop Now →
+                    </Typography>
+                  </Box>
+                  </Box>
+            </Grid>
+          </Grid>
+         </Grid>
        
         
       </Grid>

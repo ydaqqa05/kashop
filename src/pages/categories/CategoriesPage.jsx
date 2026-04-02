@@ -15,7 +15,7 @@ export default function CategoriesPage() {
   return (
    <>
    <Box className="categories" py={3}> 
-     <Typography component={'h2'} variant='h4' mb={2}>{t('Categories')}</Typography>
+     
 
 
      <Grid container spacing={3}>

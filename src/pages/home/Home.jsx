@@ -35,7 +35,7 @@ export default function Home() {
   >
     Simply Unique<span className="slash">/</span>
     <br />
-    Simply Better.
+    Simply Better<span className="slash">.</span>
   </Typography>
   <Typography
     sx={{
