@@ -21,7 +21,7 @@ export default function Categories() {
   
    
 
-    <Box className="categories" py={4} maxWidth="1200px" mx="auto" > 
+    <Box className="categories" pt={4} maxWidth="1200px" mx="auto" > 
       <Grid container spacing={2}>
        <Grid item size={{xs:12,md:6}}>
         <Box sx={{position:'relative',height:"100%",minHeight:400,overflow:"hidden",borderRadius:2}}>
@@ -55,7 +55,7 @@ export default function Categories() {
                       objectFit: "cover",
                     }}
                   />
-                  <Box sx={{ position: "absolute", top: 20, left: 20 }}>
+                  <Box sx={{ position: "absolute", bottom: 20, left: 20 }}>
                     <Typography variant="h6">
                       {categories[1]?.name}
                     </Typography>
@@ -82,7 +82,7 @@ export default function Categories() {
                       objectFit: "cover",
                     }}
                   />
-                  <Box sx={{ position: "absolute", top: 20, left: 20 }}>
+                  <Box sx={{ position: "absolute", bottom: 20, left: 20 }}>
                     <Typography variant="h6">
                       {categories[2]?.name}
                     </Typography>

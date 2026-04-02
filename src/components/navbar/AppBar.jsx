@@ -11,6 +11,7 @@ import profile from '../../assets/image/user-circle.svg'
 import cart from '../../assets/image/shopping bag.svg'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useCart from "../../hooks/useCart";
 const pages = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
@@ -20,8 +21,9 @@ const pages = [
 
 export default function ResponsiveAppBar() {
     const navigate=useNavigate()
-  const [openDrawer, setOpenDrawer] = useState(false);
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+const {data,error,isPending}=useCart();
   const toggleDrawer = (state) => {
     setOpenDrawer(state);
   };
@@ -111,7 +113,7 @@ export default function ResponsiveAppBar() {
 
               <IconButton sx={{display:'flex',gap:2}} onClick={()=>navigate('/cart')}>
               <Box component={'img'} src={cart}  /> 
-              <Badge badgeContent={2}  sx={{
+              <Badge badgeContent={data?.items?.length}  sx={{
     "& .MuiBadge-badge": {
       backgroundColor: "black",
       color: "white",
