@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import useProducts from '../../hooks/useProducts';
 import React from 'react';
 import Loader from '../../ui/loader/Loader';
@@ -19,6 +19,7 @@ export default function Products() {
   if (isError) return <Box color="red">{error.message}</Box>;
 
   return (
+    <Container maxWidth="md">
     <Box className="products" >
       <Box sx={{ display: "flex", flexDirection: "column", my: "48px",gap:'-2px' }}>
         <Typography fontSize={"40px"} fontWeight={"bold"} fontFamily={'Poppins'}  lineHeight={1.1} letterSpacing={'-0.4px'}>
@@ -58,5 +59,6 @@ export default function Products() {
       </Swiper>
 
     </Box>
+    </Container>
   );
 }

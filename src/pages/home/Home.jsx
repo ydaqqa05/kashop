@@ -1,14 +1,16 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import React from 'react'
 import Categories from '../../components/categories/CategoriesSection'
 import Products from '../../components/products/Products'
 import Swipper from '../../components/swipperSection/Swipper'
 import Features from '../../components/features/Features'
+import Advertisment from '../../components/advertisment/advertisment'
 
 export default function Home() {
   return (
     <div>
       <Swipper />
+      <Container maxWidth="md">
       <Box
   sx={{
     display: 'flex',
@@ -52,10 +54,15 @@ export default function Home() {
     is a gift & decorations store based in HCMC, Vietnam. Est since 2019.
   </Typography>
 </Box>
-
+</Container>
       <Categories />
       <Products />
       <Features/>
+      
+       <Advertisment />
+    
+   
+
     </div>
   )
 }

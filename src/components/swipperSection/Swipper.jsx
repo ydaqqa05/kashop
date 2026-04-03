@@ -1,4 +1,4 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, Container, IconButton } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -21,6 +21,7 @@ const slides = [
 
 export default function MyCarousel() {
   return (
+    <Container maxWidth="md">
     <Box sx={{position: "relative",maxWidth: "1200px",mx: "auto",height: { xs: 400, md: 500 }
       }}
     >
@@ -95,6 +96,6 @@ export default function MyCarousel() {
       >
         <ArrowForwardIosIcon fontSize="small" />
       </IconButton>
-    </Box>
+    </Box></Container>
   );
 }

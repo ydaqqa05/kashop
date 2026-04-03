@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 import deliver from '../../assets/image/fast delivery.svg';
 import money from '../../assets/image/money.svg';
@@ -7,7 +7,8 @@ import call from '../../assets/image/call.svg';
 
 export default function Features() {
   return (
-    <Box>
+    <Container maxWidth="md">
+    <Box mb={"48px"}>
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12} sm={6} md={3}>
           <Box
@@ -32,7 +33,6 @@ export default function Features() {
           </Box>
         </Grid>
 
-        {/* Feature 2 */}
         <Grid item xs={12} sm={6} md={3}>
           <Box
             sx={{
@@ -55,8 +55,6 @@ export default function Features() {
             </Typography>
           </Box>
         </Grid>
-
-        {/* Feature 3 */}
         <Grid item xs={12} sm={6} md={3}>
           <Box
             sx={{
@@ -79,8 +77,6 @@ export default function Features() {
             </Typography>
           </Box>
         </Grid>
-
-        {/* Feature 4 */}
         <Grid item xs={12} sm={6} md={3}>
           <Box
             sx={{
@@ -105,5 +101,6 @@ export default function Features() {
         </Grid>
       </Grid>
     </Box>
+    </Container>
   );
 }

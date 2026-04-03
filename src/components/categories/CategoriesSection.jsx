@@ -1,4 +1,4 @@
-import { Box, Card, CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, Card, CircularProgress, Container, Grid, Typography } from '@mui/material';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useQuery} from  '@tanstack/react-query'
@@ -23,7 +23,7 @@ const imgs=[cat9,mobile,clothes]
  console.log(categories)
   return (<>
   
-   
+  <Container maxWidth="md">
 
     <Box className="categories" pt={4} maxWidth="1200px" mx="auto" > 
       <Grid container spacing={2}>
@@ -106,5 +106,6 @@ const imgs=[cat9,mobile,clothes]
         
       </Grid>
       </Box>
+      </Container>
   </>)
 }
