@@ -96,6 +96,7 @@ export default function MyCarousel() {
       >
         <ArrowForwardIosIcon fontSize="small" />
       </IconButton>
-    </Box></Container>
+    </Box>
+    </Container>
   );
 }

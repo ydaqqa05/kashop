@@ -5,6 +5,7 @@ import Products from '../../components/products/Products'
 import Swipper from '../../components/swipperSection/Swipper'
 import Features from '../../components/features/Features'
 import Advertisment from '../../components/advertisment/advertisment'
+import Article from '../../components/article/Article'
 
 export default function Home() {
   return (
@@ -60,7 +61,7 @@ export default function Home() {
       <Features/>
       
        <Advertisment />
-    
+    <Article/>
    
 
     </div>
