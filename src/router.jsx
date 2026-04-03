@@ -17,6 +17,9 @@ import ForgetPassword from "./pages/auth/forgetPassword/ForgetPassword";
 import Verify from "./pages/auth/verify/Verify";
 import HomePage from "./pages/home/HomePage";
 import ResetPassword from "./pages/auth/resetPassword/ResetPassword";
+import ContactUs from "./pages/contactus/ContactUs";
+import Blog from "./pages/blog/Blog";
+import Shop from "./pages/shop/Shop";
 
 export const router=createBrowserRouter([
     {
@@ -64,6 +67,18 @@ export const router=createBrowserRouter([
               path:'Product/:id',
               element:<ProductDetails/>
           },
+          {
+            path:'contact',
+            element:<ContactUs/>
+          },
+          {
+            path:'blog',
+            element:<Blog/>
+          },
+          {
+            path:'shop',
+            element:<Shop/>
+          }
         ]
     },
     {

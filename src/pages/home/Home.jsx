@@ -6,6 +6,8 @@ import Swipper from '../../components/swipperSection/Swipper'
 import Features from '../../components/features/Features'
 import Advertisment from '../../components/advertisment/advertisment'
 import Article from '../../components/article/Article'
+import Footer1 from '../../components/footer/Footer1'
+import Footer2 from '../../components/footer/Footer2'
 
 export default function Home() {
   return (
@@ -62,7 +64,8 @@ export default function Home() {
       
        <Advertisment />
     <Article/>
-   
+   <Footer1/>
+   <Footer2/>
 
     </div>
   )
