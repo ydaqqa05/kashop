@@ -3,6 +3,7 @@ import React from 'react'
 import Categories from '../../components/categories/CategoriesSection'
 import Products from '../../components/products/Products'
 import Swipper from '../../components/swipperSection/Swipper'
+import Features from '../../components/features/Features'
 
 export default function Home() {
   return (
@@ -54,6 +55,7 @@ export default function Home() {
 
       <Categories />
       <Products />
+      <Features/>
     </div>
   )
 }

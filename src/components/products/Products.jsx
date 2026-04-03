@@ -19,7 +19,7 @@ export default function Products() {
   if (isError) return <Box color="red">{error.message}</Box>;
 
   return (
-    <Box className="products" py={3}>
+    <Box className="products" >
       <Box sx={{ display: "flex", flexDirection: "column", my: "48px",gap:'-2px' }}>
         <Typography fontSize={"40px"} fontWeight={"bold"} fontFamily={'Poppins'}  lineHeight={1.1} letterSpacing={'-0.4px'}>
           {t("New")}
@@ -48,7 +48,7 @@ export default function Products() {
           900: { slidesPerView: 3.2 },
           1200: { slidesPerView: 4 },
         }}
-        style={{ padding: "52px 0" }}
+        style={{ padding: "48px 0" }}
       >
         {data.response.data.map((product) => (
           <SwiperSlide key={product.id}>

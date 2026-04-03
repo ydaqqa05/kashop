@@ -8,7 +8,6 @@ export default function useCategories(limit=4) {
     const getCategories= async()=>{
      
         const response=await axiosInstance.get(`/Categories?limit=${limit}`,{
-           
         })
        return response.data
         
