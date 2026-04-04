@@ -14,7 +14,7 @@ import "swiper/css/scrollbar";
 export default function Products() {
   const { data, isError, isLoading, error } = useProducts();
   const { t } = useTranslation();
-
+console.log(data)
   if (isLoading) return <Loader />;
   if (isError) return <Box color="red">{error.message}</Box>;
 

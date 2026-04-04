@@ -1,6 +1,8 @@
 import * as React from "react";
-import {AppBar,Box,Toolbar,IconButton,Typography,Container,Button,Badge,Drawer,List,ListItem,ListItemText,Divider} from "@mui/material";
+import {AppBar,Box,Toolbar,IconButton,Typography,Container,Button,Badge,Drawer,List,ListItem,ListItemText,Divider, InputBase, Paper, ClickAwayListener} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -12,6 +14,10 @@ import cart from '../../assets/image/shopping bag.svg'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
+import useProducts from "../../hooks/useProducts";
+import useRemoveFromCart from "../../hooks/useRemoveFromCart";
+import useUpdateCartItem from "../../hooks/useUpdateCartItem";
+import Loader from "../../ui/loader/Loader";
 const pages = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
@@ -21,9 +27,51 @@ const pages = [
 
 export default function ResponsiveAppBar() {
     const navigate=useNavigate()
-
+    const [open, setOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-const {data,error,isPending}=useCart();
+  const [openCart, setOpenCart] = useState(false);
+  const {data,isError,isLoading,error}=useCart();
+  const{mutate:removeItem,isPending}=useRemoveFromCart()
+console.log("cart data",data)
+const { data: products } = useProducts(); 
+const{mutate:updateItem,isPending:updateItemPending}=useUpdateCartItem()
+console.log("product data",products)
+const cartItems=data?.items?.map((item)=>{
+  const product=products?.response?.data?.find(pro=>(pro.id===item.productId));
+  return {
+    ...item,
+    
+    name: product?.name,
+    image: product?.image,
+    price: product?.price
+  };
+}) || [];
+
+console.log(cartItems)
+
+  const handleRemoveItem=(productId)=>{
+    const item=data.items.find((i)=>{
+      return i.productId==productId;
+    }); removeItem(productId);
+  }
+  const handleUpdateQty=(productId,action)=>{ {console.log(data)}
+  
+const item=data.items.find((i)=>{
+  return i.productId==productId;
+});
+if(action=='-'){
+  updateItem({productId,count:item.count-1})
+}
+else{
+  updateItem({productId,count:item.count+1})
+}
+  }
+  if(isLoading)
+     return <Loader/>
+  if(isError)
+     return <Box color={'red'}>{error.message}</Box>
+  
+   
   const toggleDrawer = (state) => {
     setOpenDrawer(state);
   };
@@ -103,27 +151,156 @@ const {data,error,isPending}=useCart();
                 gap: 1
               }}
             >
-              <IconButton >
-                <Box component={'img'} src={search}/>
-              </IconButton>
+               <Box sx={{ position: 'relative' }}>
+  <ClickAwayListener onClickAway={() => setOpen(false)}>
+    <div>
+      <IconButton onClick={() => setOpen(!open)}>
+        <Box component="img" src={search} />
+      </IconButton>
+      {open && (
+        <Paper
+          elevation={3}
+          sx={{
+            position: 'absolute',
+            zIndex: 9,
+            top: '110%',
+            right: 0,
+            display: 'flex',
+            alignItems: 'center',
+            px: 2,
+            py: 1,
+            borderRadius: '8px',
+            width: '200px',
+          }}
+        >
+          <InputBase placeholder="Search..." sx={{ flex: 1 }} autoFocus />
+        </Paper>
+      )}
+    </div>
+  </ClickAwayListener>
+</Box>
 
               <IconButton onClick={()=>navigate('/profile')}>
               <Box component={'img'} src={profile}  />
               </IconButton>
 
-              <IconButton sx={{display:'flex',gap:2}} onClick={()=>navigate('/cart')}>
-              <Box component={'img'} src={cart}  /> 
-              <Badge badgeContent={data?.items?.length}  sx={{
-    "& .MuiBadge-badge": {
-      backgroundColor: "black",
-      color: "white",
-    }}}/>
-              </IconButton>
-
-              
+              <IconButton sx={{ display: 'flex', gap: 2 }} onClick={() => setOpenCart(true)}>
+  <Box component={'img'} src={cart} />
+  <Badge
+    badgeContent={data?.items?.length}
+    sx={{
+      "& .MuiBadge-badge": {
+        backgroundColor: "black",
+        color: "white",
+      }
+    }}
+  />
+</IconButton>        
             </Box>
           </Toolbar>
         </Container>
+        <Drawer
+  anchor="right"
+  open={openCart}
+  onClose={() => setOpenCart(false)}
+>
+  <Box sx={{ width: 350, p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+      <Typography fontWeight="bold" fontSize="24px">Cart</Typography>
+      <IconButton onClick={() => setOpenCart(false)}>
+        <CloseIcon />
+      </IconButton>
+    </Box>
+
+    <Divider sx={{ mb: 2 }} />
+    <Box sx={{ flex: 1, overflowY: 'auto' }}>
+      {data?.items?.length > 0 ? (
+        cartItems.map((item, index) => (
+          <Box
+            key={index}
+            sx={{
+              display: 'flex',
+              gap: 2,
+              mb: 3,
+              alignItems: 'center',
+              borderBottom: '1px solid #eee', 
+              pb: 2 
+            }}
+          >
+            <Box
+              component="img"
+              src={item.image }
+              sx={{ width: 60, height: 60, borderRadius: 2 }}
+            />
+
+      
+            <Box sx={{ flex: 1 }}>
+              <Box sx={{display:'flex', justifyContent:'space-between',mb:"8px"}}><Typography fontSize="14px" fontFamily={'Inter'} fontWeight="600">
+                {item.name}
+              </Typography>
+              <Typography fontSize="14px" fontFamily={'Inter'} fontWeight={600} >
+                ${item.price}
+              </Typography>
+              </Box>
+              <Box sx={{display:'flex', justifyContent:'space-between',mb:"8px"}}>
+                <Typography color="#6C7275" fontFamily={'Inter'} fontSize={"12px"}>Color: Black</Typography>
+               <IconButton size="small" onClick={()=>handleRemoveItem(item.productId)}>
+              ✕
+            </IconButton>
+            </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  border: '1px solid #ddd',
+                  borderRadius: 1,
+                  width: 'fit-content',
+                  mt: 1
+                }}
+              > 
+             
+             <IconButton size="small" disabled={updateItemPending} onClick={()=>handleUpdateQty(item.productId,'-')}><RemoveIcon/></IconButton>
+                <Typography px={1}>{item.count}</Typography>
+                <IconButton size="small" disabled={updateItemPending} onClick={()=>handleUpdateQty(item.productId,'+')}><AddIcon/></IconButton>
+              </Box>
+            </Box>
+
+           
+          </Box>
+        ))
+      ) : (
+        <Typography>Cart is empty</Typography>
+      )}
+    </Box>
+    <Divider sx={{ my: 2 }} />
+
+    <Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+        <Typography>Subtotal</Typography>
+        <Typography fontWeight="bold">
+          ${data.cartTotal}
+          
+        </Typography>
+      </Box>
+
+      <Button
+        fullWidth
+        variant="contained"
+        onClick={()=>navigate('/checkout')}
+        sx={{
+          background: 'black',
+          color: 'white',
+          borderRadius: 2,
+          py: 1.5,
+          "&:hover": { background: "#333" }
+        }}
+      >
+        Checkout
+      </Button>
+    </Box>
+
+  </Box>
+</Drawer>
       </AppBar>
 
       
