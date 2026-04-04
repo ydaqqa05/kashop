@@ -26,7 +26,7 @@ const navigate=useNavigate()
 
   return (
     <Box>
-      <Card elevation={0} sx={{borderRadius: 4,overflow: "hidden",cursor: "pointer",transition: "all 0.3s ease",
+      <Card elevation={0} onClick={() => navigate(`/product/${product.id}`)}  sx={{borderRadius: 4,overflow: "hidden",cursor: "pointer",transition: "all 0.3s ease",
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}

@@ -12,7 +12,7 @@ import search from '../../assets/image/search 02.svg'
 import profile from '../../assets/image/user-circle.svg'
 import cart from '../../assets/image/shopping bag.svg'
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useCart from "../../hooks/useCart";
 import useProducts from "../../hooks/useProducts";
 import useRemoveFromCart from "../../hooks/useRemoveFromCart";
@@ -27,13 +27,14 @@ const pages = [
 
 export default function ResponsiveAppBar() {
     const navigate=useNavigate()
+    const {id}=useParams();
     const [open, setOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const {data,isError,isLoading,error}=useCart();
   const{mutate:removeItem,isPending}=useRemoveFromCart()
 console.log("cart data",data)
-const { data: products } = useProducts(); 
+const { data: products } = useProducts(id); 
 const{mutate:updateItem,isPending:updateItemPending}=useUpdateCartItem()
 console.log("product data",products)
 const cartItems=data?.items?.map((item)=>{
@@ -216,7 +217,9 @@ else{
     <Box sx={{ flex: 1, overflowY: 'auto' }}>
       {data?.items?.length > 0 ? (
         cartItems.map((item, index) => (
-          <Box
+          <Box onClick={() => navigate(`/product/${item.productId
+            }`)}
+         
             key={index}
             sx={{
               display: 'flex',
@@ -224,7 +227,8 @@ else{
               mb: 3,
               alignItems: 'center',
               borderBottom: '1px solid #eee', 
-              pb: 2 
+              pb: 2 ,
+              cursor:"pointer"
             }}
           >
             <Box
@@ -259,9 +263,9 @@ else{
                 }}
               > 
              
-             <IconButton size="small" disabled={updateItemPending} onClick={()=>handleUpdateQty(item.productId,'-')}><RemoveIcon/></IconButton>
+             <IconButton size="small" disabled={updateItemPending} onClick={()=>count>1&&handleUpdateQty(item.productId,'-')}><RemoveIcon/></IconButton>
                 <Typography px={1}>{item.count}</Typography>
-                <IconButton size="small" disabled={updateItemPending} onClick={()=>handleUpdateQty(item.productId,'+')}><AddIcon/></IconButton>
+                <IconButton size="small" disabled={updateItemPending} onClick={()=>count>1&&handleUpdateQty(item.productId,'+')}><AddIcon/></IconButton>
               </Box>
             </Box>
 
