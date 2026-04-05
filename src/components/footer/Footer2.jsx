@@ -16,17 +16,17 @@ export default function Footer2() {
      
       <Box sx={{display: "flex",justifyContent: "space-between",alignItems: "center",flexWrap: "wrap", mb: 4,}}>
        
-        <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+        <Box sx={{ display: "flex",flexDirection:{xs:'column',md:'row'}, alignItems: "center", gap:{sx:1,md:3}}}>
           <Typography fontSize="22px" fontWeight="600">
             3legant.
           </Typography>
 
           <Typography
-            sx={{ borderLeft: "1px solid #444",pl: 3,color: "#aaa",fontFamily:'Inter',fontSize: "14px",}}>
+            sx={{ borderLeft: "1px solid #444",pl: 3,color: "#aaa",fontFamily:'Inter',fontSize: "14px",mb:{xs:"5px"}}}>
             Gift & Decoration Store
           </Typography>
         </Box>
-        <Box sx={{ display: "flex", gap: 4 }}>
+        <Box sx={{ display: "flex", gap: 4,flexWrap:'wrap' }}>
           {[ { label: "Home", path: "/" },
   { label: "Shop", path: "/shop" },
   { label: "Product", path: "/" },
