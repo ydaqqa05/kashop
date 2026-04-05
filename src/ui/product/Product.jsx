@@ -26,7 +26,7 @@ const navigate=useNavigate()
 
   return (
     <Box>
-      <Card elevation={0} onClick={() => navigate(`/product/${product.id}`)}  sx={{borderRadius: 4,overflow: "hidden",cursor: "pointer",transition: "all 0.3s ease",
+      <Card elevation={0}   sx={{borderRadius: 4,overflow: "hidden",cursor: "pointer",transition: "all 0.3s ease",
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -35,7 +35,7 @@ const navigate=useNavigate()
             alignItems: "center",justifyContent: "center",p:'20px'
           }}
         >
-          <CardMedia component="img" image={product.image}alt={product.title}
+          <CardMedia component="img" image={product.image}alt={product.title} onClick={() => navigate(`/product/${product.id}`)}
             sx={{height: 240, objectFit: "contain",transition: "transform 0.3s ease",transform: hovered ? "scale(1.05)" : "scale(1)",
             }}
           />
