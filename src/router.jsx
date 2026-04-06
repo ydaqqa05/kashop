@@ -20,6 +20,7 @@ import ResetPassword from "./pages/auth/resetPassword/ResetPassword";
 import ContactUs from "./pages/contactus/ContactUs";
 import Blog from "./pages/blog/Blog";
 import Shop from "./pages/shop/Shop";
+import CartPage from "./pages/cart/tabPage";
 
 export const router=createBrowserRouter([
     {
@@ -38,7 +39,7 @@ export const router=createBrowserRouter([
                 path:'cart',
                 element:
                 <ProtectedRouter>
-                <Cart/></ProtectedRouter>
+                <CartPage/></ProtectedRouter>
             },
             {
               path:'checkout',

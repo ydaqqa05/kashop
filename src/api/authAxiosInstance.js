@@ -1,7 +1,7 @@
 import axios from "axios";
 import { axiosInstance } from "./axiosInstance";
 import { useAuthStore } from "../store/useAuthStore";
-const {token,setToken}=useAuthStore.getState();
+const {token,setToken}=useAuthStore.getState()
 const authaxiosInstance = axios.create({
     baseURL: 'https://knowledgeshop.runasp.net/api',
     withCredentials:true,

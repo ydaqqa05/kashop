@@ -3,10 +3,6 @@ import {AppBar,Box,Toolbar,IconButton,Typography,Container,Button,Badge,Drawer,L
 import MenuIcon from "@mui/icons-material/Menu";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import SearchIcon from "@mui/icons-material/Search";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import search from '../../assets/image/search 02.svg'
 import profile from '../../assets/image/user-circle.svg'
@@ -53,7 +49,8 @@ console.log(cartItems)
   const handleRemoveItem=(productId)=>{
     const item=data.items.find((i)=>{
       return i.productId==productId;
-    }); removeItem(productId);
+    }); 
+    removeItem(productId);
   }
   const handleUpdateQty=(productId,action)=>{ {console.log(data)}
   
