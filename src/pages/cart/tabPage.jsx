@@ -5,6 +5,8 @@ import { useState } from "react";
 import Cart from "../../components/pageForTabs/Cart";
 import Checkout from "../../components/pageForTabs/Checkout";
 import { useLocation } from "react-router-dom";
+import OrderConfirmation from "../../components/pageForTabs/Complete";
+import Complete from "../../components/pageForTabs/Complete";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -28,6 +30,7 @@ CustomTabPanel.propTypes = {
 export default function tabPage() {
   const [value, setValue] = useState(0);
   const [selectedShipping, setSelectedShipping] = useState({label: "Free shipping",price: 0});
+  const [paymentMethod, setPaymentMethod] = useState('card');
 const location=useLocation();
   const handleChange = (event, newValue) => {
     if((value-setValue)>0)
@@ -122,11 +125,12 @@ const location=useLocation();
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={1}>
-         <Checkout selectedShip={selectedShipping}/>
+         <Checkout paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod}
+          complete={()=>setValue(2)} selectedShip={selectedShipping}/>
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={2}>
-          <Typography>✅ Order Complete هنا</Typography>
+        <Complete paymentMethod={paymentMethod}/>
         </CustomTabPanel>
 
       </Box>

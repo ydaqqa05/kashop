@@ -21,13 +21,11 @@ import useUpdateCartItem from "../../hooks/useUpdateCartItem";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import useCheckout from "../../hooks/useCheckout";
-export default function Checkout({selectedShip}) {
+export default function Checkout({complete,selectedShip, paymentMethod, setPaymentMethod }) {
     const {id}=useParams();
     const { mutate, isPending } = useCheckout();
    const {data,isError,isLoading,error}=useCart();
    const { data: products } = useProducts(id); 
-  
-  const [paymentMethod, setPaymentMethod] = useState("card");
   
   const cartItems=data?.items?.map((item)=>{
     const product=products?.response?.data?.find(pro=>(pro.id===item.productId));
@@ -45,6 +43,7 @@ export default function Checkout({selectedShip}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     mutate(paymentMethod==="card"?"Visa":"Cash");
+    complete();
   };
 
   return (
@@ -141,16 +140,16 @@ export default function Checkout({selectedShip}) {
                 />
               </Box>
 
-              <Box sx={{ border: "1px solid #ddd", p: 1, mb: 2,backgroundColor:paymentMethod=="paypal"?"#F3F5F7":"#fff" }}>
+              <Box sx={{ border: "1px solid #ddd", p: 1, mb: 2,backgroundColor:paymentMethod=="Cash"?"#F3F5F7":"#fff" }}>
                 <FormControlLabel
                   control={
                     <Radio
-                      checked={paymentMethod === "paypal"}
+                      checked={paymentMethod === "Cash"}
                      
-                      onChange={() => setPaymentMethod("paypal")}
+                      onChange={() => setPaymentMethod("Cash")}
                     />
                   }
-                  label="Paypal"
+                  label="Cash"
                 />
               </Box>
 
@@ -178,6 +177,7 @@ export default function Checkout({selectedShip}) {
 
             <Button
               fullWidth
+              
               type="submit"
               disabled={isPending}
               sx={{

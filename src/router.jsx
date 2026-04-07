@@ -21,6 +21,7 @@ import ContactUs from "./pages/contactus/ContactUs";
 import Blog from "./pages/blog/Blog";
 import Shop from "./pages/shop/Shop";
 import CartPage from "./pages/cart/tabPage";
+import Complete from "./components/pageForTabs/Complete";
 
 export const router=createBrowserRouter([
     {
@@ -47,6 +48,12 @@ export const router=createBrowserRouter([
               <ProtectedRouter>
               <Checkout/></ProtectedRouter>
           },
+          {
+            path:'complete',
+            element:
+            
+            <Complete/>
+        },
           {
             path:'profile',
             element:
