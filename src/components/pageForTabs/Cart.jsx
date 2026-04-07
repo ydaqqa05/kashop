@@ -10,10 +10,10 @@ import useRemoveFromCart from "../../hooks/useRemoveFromCart";
 import useUpdateCartItem from "../../hooks/useUpdateCartItem";
 import useProducts from "../../hooks/useProducts";
 
-export default function CartPage({ Checkout }) {
+export default function CartPage({ Checkout, setSelectedShipping }) {
     const { data, isError, isLoading, error } = useCart();
     const navigate = useNavigate()
-    const [selectedShipping, setSelectedShipping] = useState(0);
+    const [localSelected, setLocalSelected] = useState(0);
     const { mutate: removeItem, isPending } = useRemoveFromCart()
     const { mutate: updateItem, isPending: updateItemPending } = useUpdateCartItem()
     const { id } = useParams();
@@ -55,7 +55,7 @@ export default function CartPage({ Checkout }) {
         { label: "Pick Up", price: 21 },
     ];
 
-    const selectedPrice = shippingOptions[selectedShipping].price;
+    const selectedPrice = shippingOptions[localSelected].price;
     return (
         <Box px={8} py={6}>
             <Box display="flex" gap={6} alignItems="flex-start">
@@ -179,7 +179,10 @@ export default function CartPage({ Checkout }) {
                         {shippingOptions.map((opt, i) => (
                             <Box
                                 key={i}
-                                onClick={() => setSelectedShipping(i)}
+                                onClick={() => {
+                                    setSelectedShipping(opt);
+                                    setLocalSelected(i); 
+                                  }}
                                 sx={{
                                     display: "flex",
                                     justifyContent: "space-between",
@@ -192,7 +195,7 @@ export default function CartPage({ Checkout }) {
                                 }}
                             >
                                 <Box display="flex" alignItems="center">
-                                    <Radio checked={selectedShipping === i} />
+                                <Radio checked={localSelected === i} />
                                     <Typography>{opt.label}</Typography>
                                 </Box>
 

@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Box, Tabs, Tab, Typography } from "@mui/material";
 import { useState } from "react";
 import Cart from "../../components/pageForTabs/Cart";
+import Checkout from "../../components/pageForTabs/Checkout";
+import { useLocation } from "react-router-dom";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -25,8 +27,10 @@ CustomTabPanel.propTypes = {
 
 export default function tabPage() {
   const [value, setValue] = useState(0);
-
+  const [selectedShipping, setSelectedShipping] = useState({label: "Free shipping",price: 0});
+const location=useLocation();
   const handleChange = (event, newValue) => {
+    if((value-setValue)>0)
     setValue(newValue);
   };
 
@@ -35,7 +39,7 @@ export default function tabPage() {
     { label: "Checkout details" },
     { label: "Order complete" },
   ];
-
+  const titles = ["Cart", "Check Out", "Complete!"];
   return (
     <Box
       sx={{
@@ -47,7 +51,7 @@ export default function tabPage() {
       }}
     >
       <Typography fontSize="54px" fontWeight={500}>
-        Cart
+      {titles[value]}
       </Typography>
       <Tabs
         value={value}
@@ -113,11 +117,12 @@ export default function tabPage() {
       <Box sx={{ width: "100%",  maxWidth: "1200px", mx: "auto"}}>
         
         <CustomTabPanel value={value} index={0}>
-        <Cart Checkout={() => setValue(1)}/>
+        <Cart  Checkout={() => setValue(1)} 
+  setSelectedShipping={setSelectedShipping}/>
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={1}>
-          <Typography>💳 Checkout Content هنا</Typography>
+         <Checkout selectedShip={selectedShipping}/>
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={2}>

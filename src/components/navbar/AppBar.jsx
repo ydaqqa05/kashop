@@ -260,9 +260,9 @@ else{
                 }}
               > 
              
-             <IconButton size="small" disabled={updateItemPending} onClick={()=>count>1&&handleUpdateQty(item.productId,'-')}><RemoveIcon/></IconButton>
+             <IconButton size="small" disabled={updateItemPending} onClick={()=>handleUpdateQty(item.productId,'-')}><RemoveIcon/></IconButton>
                 <Typography px={1}>{item.count}</Typography>
-                <IconButton size="small" disabled={updateItemPending} onClick={()=>count>1&&handleUpdateQty(item.productId,'+')}><AddIcon/></IconButton>
+                <IconButton size="small" disabled={updateItemPending} onClick={()=>handleUpdateQty(item.productId,'+')}><AddIcon/></IconButton>
               </Box>
             </Box>
 
