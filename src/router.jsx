@@ -17,11 +17,11 @@ import ForgetPassword from "./pages/auth/forgetPassword/ForgetPassword";
 import Verify from "./pages/auth/verify/Verify";
 import HomePage from "./pages/home/HomePage";
 import ResetPassword from "./pages/auth/resetPassword/ResetPassword";
-import ContactUs from "./pages/contactus/ContactUs";
 import Blog from "./pages/blog/Blog";
 import Shop from "./pages/shop/Shop";
 import CartPage from "./pages/cart/tabPage";
 import Complete from "./components/pageForTabs/Complete";
+import ContactUs from "./pages/contactus/ContactUs";
 
 export const router=createBrowserRouter([
     {
@@ -50,9 +50,7 @@ export const router=createBrowserRouter([
           },
           {
             path:'complete',
-            element:
-            
-            <Complete/>
+            element: <Complete/>
         },
           {
             path:'profile',
