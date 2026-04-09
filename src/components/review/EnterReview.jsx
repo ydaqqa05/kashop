@@ -8,7 +8,8 @@ export default function ReviewInput({ product }) {
   const [rating, setRating] = useState(null);
   const [sort, setSort] = useState("newest");
   const [showCount,setShowCount]=useState(4);
-  const { mutate, isLoading, isSuccess, isError, error } = useReview(product.productId);
+  console.log(product)
+  const { mutate, isLoading, isSuccess, isError, error } = useReview(product.id);
 console.log(mutate)
   const handleSubmit = () => {
     if (!comment.trim() || rating === null) return;
@@ -19,9 +20,9 @@ console.log(mutate)
           setComment('');
           setRating(null);
         },
-        onError: () => {
-            console.error('Failed to submit review');
-          },
+        onError: (error) => {
+          console.log("🔥", error.response?.data);
+        }
       }
     );
   };

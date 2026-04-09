@@ -29,7 +29,7 @@ export default function Footer2() {
         <Box sx={{ display: "flex", gap: 4,flexWrap:'wrap' }}>
           {[ { label: "Home", path: "/" },
   { label: "Shop", path: "/shop" },
-  { label: "Product", path: "/" },
+ 
   { label: "Blog", path: "/blog" },
   { label: "Contact Us", path: "/contact" },].map((item) => (
             <Link

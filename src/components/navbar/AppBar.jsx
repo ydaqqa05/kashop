@@ -14,10 +14,11 @@ import useProducts from "../../hooks/useProducts";
 import useRemoveFromCart from "../../hooks/useRemoveFromCart";
 import useUpdateCartItem from "../../hooks/useUpdateCartItem";
 import Loader from "../../ui/loader/Loader";
+import Search from "../searchBar/Search";
 const pages = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
-    { name: "Product", path: "/product" },
+    { name: "Blog", path: "/blog" },
     { name: "Contact Us", path: "/contact" }
   ];
 
@@ -156,23 +157,7 @@ else{
         <Box component="img" src={search} />
       </IconButton>
       {open && (
-        <Paper
-          elevation={3}
-          sx={{
-            position: 'absolute',
-            zIndex: 9,
-            top: '110%',
-            right: 0,
-            display: 'flex',
-            alignItems: 'center',
-            px: 2,
-            py: 1,
-            borderRadius: '8px',
-            width: '200px',
-          }}
-        >
-          <InputBase placeholder="Search..." sx={{ flex: 1 }} autoFocus />
-        </Paper>
+       <Search/>
       )}
     </div>
   </ClickAwayListener>
@@ -287,7 +272,7 @@ else{
       <Button
         fullWidth
         variant="contained"
-        onClick={()=>navigate('/checkout')}
+        onClick={()=>navigate('/cart')}
         sx={{
           background: 'black',
           color: 'white',

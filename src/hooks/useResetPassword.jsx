@@ -7,7 +7,7 @@ export default function useResetPassword() {
     const queryClient=useQueryClient();
   return useMutation({
     mutationFn:async({code,newPassword,email})=>{
-        const response=await axiosInstance.patch(`Account/ResetPassword`,{code,newPassword,email})
+        const response=await axiosInstance.patch(`auth/Account/ResetPassword`,{code,newPassword,email})
         console.log(response);
     }
   })

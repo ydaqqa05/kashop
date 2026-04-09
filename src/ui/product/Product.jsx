@@ -13,9 +13,7 @@ export default function Product({ product }) {
     addToCart(
       { productId: product.id, count: 1 },
       {
-        onSuccess: () => {
-          navigate("/Cart");
-        },
+        
       }
     );
   };

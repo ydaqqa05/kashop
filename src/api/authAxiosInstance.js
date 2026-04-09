@@ -22,7 +22,7 @@ withCredentials:true,
 });
 const newAccessToken=refreshResponse.data.accessToken;
 console.log(refreshResponse)
-setToken(newAccessToken)
+useAuthStore.getState().setToken(newAccessToken);
 originalRequest.headers.Authorization=`Bearer ${newAccessToken}`
 return authaxiosInstance(originalRequest)
         }catch(error){
@@ -30,5 +30,7 @@ return authaxiosInstance(originalRequest)
             return Promise.reject(error)
         }
     }
-})
+    return Promise.reject(error)
+}
+)
 export default authaxiosInstance

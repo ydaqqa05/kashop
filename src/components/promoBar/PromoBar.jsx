@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 import CloseIcon from "@mui/icons-material/Close";
 import { TicketPercent } from 'lucide-react';
 import ticket from '../../assets/image/ticket-percent.svg'
+import { useNavigate } from 'react-router-dom';
 export default function PromoBar() {
+  const navigate=useNavigate();
     const [open,setOpen]=useState(true);
     if (!open) return null;
   return (
@@ -23,7 +25,7 @@ export default function PromoBar() {
     
     <Typography sx={{ fontSize: "14px",justifyContent:'center',alignItems:'center',display:'flex',gap:"12px" }}>
     <Box component={'img'} src={ticket}/> <b>30% off storewide — Limited time!</b>{" "}
-      <span style={{ color: "#377DFF", cursor: "pointer" }}>
+      <span style={{ color: "#377DFF", cursor: "pointer" }} onClick={()=>navigate('/shop')}>
         Shop Now →
       </span>
     </Typography>

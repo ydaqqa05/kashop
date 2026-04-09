@@ -40,7 +40,7 @@ export default function Advertisment() {
             It’s more affordable than ever to give every room in your home a stylish makeover
           </Typography>
 
-          <Link style={{color:'#000'}}>Shop Now →</Link>
+          <Link style={{color:'#000'}} to="/shop">Shop Now →</Link>
         </Grid>
 
       </Grid>
