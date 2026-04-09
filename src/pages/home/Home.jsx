@@ -4,10 +4,10 @@ import Categories from '../../components/categories/CategoriesSection'
 import Products from '../../components/products/Products'
 import Swipper from '../../components/swipperSection/Swipper'
 import Features from '../../components/features/Features'
-import Advertisment from '../../components/advertisment/advertisment'
 import Article from '../../components/article/Article'
 import Footer1 from '../../components/footer/Footer1'
 import Footer2 from '../../components/footer/Footer2'
+import Advertisment from '../../components/advertisment/Advertisment'
 
 export default function Home() {
   return (

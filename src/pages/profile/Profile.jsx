@@ -191,7 +191,6 @@ const handleSubmit = () => {
     </Typography>
 
     <Box>
-      {/* Header */}
       <Box
         sx={{
           display: "grid",
