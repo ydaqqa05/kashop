@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 export default function Footer1() {
     const navigate=useNavigate()
   return (
-    <Box sx={{ backgroundImage: `url(${footerEmail})`,backgroundSize: 'cover',backgroundPosition: 'right center', backgroundRepeat: 'no-repeat',
+    <Box sx={{  backgroundImage: { xs: 'none', sm: `url(${footerEmail})` },backgroundSize: 'cover',backgroundPosition: 'right center', backgroundRepeat: 'no-repeat',
         height: '300px',display: 'flex',alignItems: 'center', justifyContent: 'center',textAlign: 'center',px: 2  }}>
       <Box>
   <Typography fontSize="40px" fontWeight={500} fontFamily="Poppins">
