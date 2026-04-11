@@ -208,6 +208,7 @@ else{
       variant="contained"
       onClick={() => navigate('/register')}
       sx={{
+        whiteSpace:'nowrap',
         textTransform: "none",
         backgroundColor: "black",
         color: "#fff",
