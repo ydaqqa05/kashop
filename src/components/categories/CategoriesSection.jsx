@@ -8,11 +8,12 @@ import { Link } from 'react-router-dom';
 import Category from '../../ui/category/Category';
 import { useTranslation } from 'react-i18next';
 import cat9 from '../../assets/image/cat9.webp'
+import elec1 from '../../assets/image/elec1.webp'
 import mobile from '../../assets/image/mobile (1).webp'
 import clothes from '../../assets/image/clothes (1).webp'
 export default function Categories() {
   const {data,isLoading,isError,error}=useCategories();
-const imgs=[cat9,mobile,clothes]
+const imgs=[elec1,mobile,clothes]
   const {t}=useTranslation()
      if(isLoading)
         return <Loader/>
@@ -28,14 +29,14 @@ const imgs=[cat9,mobile,clothes]
     <Box className="categories" pt={4} maxWidth="1200px" mx="auto" > 
       <Grid container spacing={2}>
        <Grid item size={{xs:12,md:6}}>
-        <Box sx={{position:'relative',height:"100%",minHeight:400,overflow:"hidden",borderRadius:2}}>
-        <Box component={'img'} src={categories[0]?.image||imgs[0]} alt={categories[0]?.name} 
-        sx={{ width: "100%", height: "100%",objectFit: "cover",}}/>
+        <Box sx={{position:'relative',height:"100%",minHeight:400,overflow:"hidden",borderRadius:2 , backgroundColor:"#fff"}}>
+        <Box component={'img'} src={imgs[0]} alt={categories[0]?.name}  
+        sx={{ width: "100%", height: "100%",objectFit: "cover"}}/>
         <Box sx={{position:'absolute',top:30,left:30}} >
           <Typography variant='h5' fontWeight={500}>{categories[0]?.name}</Typography>
-          <Typography variant="body2" sx={{ mt: 1 }}>
+          <Link  mt={1} style={{color:"#000"}}>
                   Shop Now →
-                </Typography>
+                </Link>
         </Box>
         
         </Box>
@@ -67,9 +68,9 @@ const imgs=[cat9,mobile,clothes]
                     <Typography variant="h6">
                       {categories[1]?.name}
                     </Typography>
-                    <Typography variant="body2" mt={1}>
+                    <Link  mt={1} style={{color:"#000"}}>
                       Shop Now →
-                    </Typography>
+                    </Link>
                   </Box>
                   </Box>
             </Grid>
@@ -94,9 +95,9 @@ const imgs=[cat9,mobile,clothes]
                     <Typography variant="h6">
                       {categories[2]?.name}
                     </Typography>
-                    <Typography variant="body2" mt={1}>
+                    <Link mt={1} style={{color:"#000"}}>
                       Shop Now →
-                    </Typography>
+                    </Link>
                   </Box>
                   </Box>
             </Grid>

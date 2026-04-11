@@ -31,7 +31,7 @@ console.log(data)
             {t("Arrivals")}
           </Typography>
 
-          <Link to={"/"} style={{ color: "#000" }}>
+          <Link to={"/shop"} style={{ color: "#000" }}>
             More Products →
           </Link>
         </Box>

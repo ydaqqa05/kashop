@@ -11,11 +11,8 @@ import CategoriesPage from "./pages/categories/CategoriesPage";
 import ProtectedRouter from "./ProtectedRouter";
 import Checkout from "./pages/checkout/Checkout";
 import Profile from "./pages/profile/Profile";
-import ProfileInfo from "./pages/profile/ProfileInfo";
-import ProfileOrders from "./pages/profile/ProfileOrders";
 import ForgetPassword from "./pages/auth/forgetPassword/ForgetPassword";
 import Verify from "./pages/auth/verify/Verify";
-import HomePage from "./pages/home/HomePage";
 import ResetPassword from "./pages/auth/resetPassword/ResetPassword";
 import Blog from "./pages/blog/Blog";
 import Shop from "./pages/shop/Shop";
@@ -32,10 +29,7 @@ export const router=createBrowserRouter([
                 index:true,
                 element:<Home/>
             },
-            {
-              path:'homePage',
-              element:<HomePage/>
-          },
+          
             {
                 path:'cart',
                 element:
@@ -56,14 +50,7 @@ export const router=createBrowserRouter([
             path:'profile',
             element:
             <ProtectedRouter>
-            <Profile/></ProtectedRouter>,
-            children:[{
-              index:true,
-              element:<ProfileInfo/>
-            },{
-              path:'orders',
-              element:<ProfileOrders/>
-            }]
+            <Profile/></ProtectedRouter>
         },
             {
               path:'categories',

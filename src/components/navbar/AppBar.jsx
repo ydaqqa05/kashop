@@ -79,12 +79,13 @@ else{
     <>
     
       <AppBar
-        position="static"
+        position="fixed"
         sx={{
           background: "#fff",
           color: "#000",
           boxShadow: "none",
-          borderBottom: "1px solid #eee"
+          borderBottom: "1px solid #eee",
+          top:"30px"
         }}
       >
         <Container maxWidth="lg">
@@ -318,8 +319,12 @@ else{
           <List>
             {pages.map((page) => (
               <ListItem
-                key={page}
-                onClick={() => toggleDrawer(false)}
+                
+              key={page.name}
+              onClick={() => {
+                navigate(page.path);
+                toggleDrawer(false);
+              }}
                 sx={{
                   cursor: "pointer",
                   borderRadius: 2,
@@ -329,7 +334,7 @@ else{
                 }}
               >
                 <ListItemText
-                  primary={page}
+                  primary={page.name}
                   primaryTypographyProps={{
                     fontWeight: 500
                   }}
@@ -343,10 +348,10 @@ else{
           
           <List>
             <ListItem sx={{ cursor: "pointer" }}>
-              <ListItemText primary="Login"  />
+              <ListItemText primary="Login" onClick={()=>navigate('/login')} />
             </ListItem>
             <ListItem sx={{ cursor: "pointer" }}>
-              <ListItemText primary="Register" />
+              <ListItemText primary="Register" onClick={()=>navigate('/register')} />
             </ListItem>
           </List>
         </Box>

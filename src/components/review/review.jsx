@@ -51,12 +51,6 @@ console.log(product)
           <Tab label="Reviews" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        Item One
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        Item Two
-      </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <Box  sx={{display:'flex',flexDirection:'column',gap:1}}>
             <Typography fontSize={"28px"} fontFamily={"Poppins"} fontWeight={600} mb={2}>Customer Reviews</Typography>

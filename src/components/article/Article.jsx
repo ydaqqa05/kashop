@@ -7,6 +7,7 @@ import article2 from '../../assets/image/article2.webp'
 import article3 from '../../assets/image/article3.webp'
 export default function Article() {
      const { t } = useTranslation();
+     
   return (
    <Container maxWidth="lg">
     <Box sx={{ display: "flex", flexDirection: "column", my: "48px",gap:'-2px' }}>
@@ -14,9 +15,10 @@ export default function Article() {
         <Box sx={{ display: "flex", justifyContent: "space-between",alignItems:'end' }}>
           <Typography fontSize={"40px"} fontWeight={"bold"} fontFamily={'Poppins'}  lineHeight={1.1} letterSpacing={'-0.4px'}>
             {t("Articles")}
+
           </Typography>
 
-          <Link to={"/"} style={{ color: "#000" }}>
+          <Link to={"/blog"} style={{ color: "#000" }}>
           More Articles →
           </Link>
         </Box>
@@ -39,7 +41,7 @@ export default function Article() {
             <Typography fontSize="20px" mb="8px" fontFamily="Poppins">
             7 ways to decor your home
             </Typography>
-            <Link to={"/"} style={{ color: "#000" }} fontSize="16px" fontFamily='Inter'>
+            <Link to={"/blog"} style={{ color: "#000" }} fontSize="16px" fontFamily='Inter'>
             Read More →
           </Link>
           </Box>
@@ -61,7 +63,7 @@ export default function Article() {
             <Typography fontSize="20px" mb="8px" fontFamily="Poppins">
             Kitchen organization
             </Typography>
-            <Link to={"/"} style={{ color: "#000" }} fontSize="16px" fontFamily='Inter'>
+            <Link to={"/blog"} style={{ color: "#000" }} fontSize="16px" fontFamily='Inter'>
             Read More →
           </Link>
           </Box>
@@ -82,7 +84,7 @@ export default function Article() {
             <Typography fontSize="20px" mb="8px" fontFamily="Poppins">
             Decor your bedroom
             </Typography>
-            <Link to={"/"} style={{ color: "#000",fontSize:"16px", fontFamily:'Inter' }} >
+            <Link to={"/blog"} style={{ color: "#000",fontSize:"16px", fontFamily:'Inter' }} >
             Read More →
           </Link>
           </Box>

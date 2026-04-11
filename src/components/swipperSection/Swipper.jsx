@@ -9,17 +9,19 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import swipper1 from "../../assets/image/sofa-swipper.webp";
 import swipper2 from "../../assets/image/sofa-swipper2.webp";
 import swipper3 from "../../assets/image/sofa-swipper3.webp";
+import { useNavigate } from "react-router-dom";
 
 const slides = [ 
-  { img: swipper1,eyebrow: "New Collection",title: "Live, the life\nyou love",cta: "Shop Now",
+  { img: swipper1,eyebrow: "New Collection",title: "Live, the life\nyou love",cta: "Shop Now"
   },
-  {img: swipper2,eyebrow: "Featured Pieces", title: "Timeless\nComfort",cta: "Explore",
+  {img: swipper2,eyebrow: "Featured Pieces", title: "Timeless\nComfort",cta: "Explore"
   },
   {img: swipper3,eyebrow: "Handcrafted",title: "Designed\nfor you",cta: "Discover",
   },
 ];
 
 export default function MyCarousel() {
+  const navigate=useNavigate()
   return (
     <Container maxWidth="md">
     <Box sx={{position: "relative",maxWidth: "1200px",mx: "auto",height: { xs: 400, md: 500 }
@@ -66,7 +68,7 @@ export default function MyCarousel() {
                   {slide.title}
                 </Box>
 
-                <Box component="button" sx={{px: 3.5,py: 1.25,border: "1px solid rgba(255,255,255,0.7)",
+                <Box component="button" onClick={()=>navigate('/shop')} sx={{px: 3.5,py: 1.25,border: "1px solid rgba(255,255,255,0.7)",
                     color: "#fff",background: "transparent",cursor: "pointer",
                     "&:hover": {
                       background: "#fff",

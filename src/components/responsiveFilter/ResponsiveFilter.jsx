@@ -23,8 +23,6 @@ export default function ResponsiveFilter() {
         ))}
       </Tabs>
     </Box>
-
-    {/* SORT */}
     <Box mt={3}>
       <Typography fontWeight="bold">SORT BY</Typography>
 
