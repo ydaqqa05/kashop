@@ -81,13 +81,13 @@ else{
     <>
     
       <AppBar
-        position="fixed"
+        position="static"
         sx={{
           background: "#fff",
           color: "#000",
           boxShadow: "none",
           borderBottom: "1px solid #eee",
-          top:"30px"
+       
         }}
       >
         <Container maxWidth="lg">
@@ -154,7 +154,6 @@ else{
         gap: 1
       }}
     >
-      {/* search */}
       <Box sx={{ position: 'relative' }}>
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <div>
@@ -225,12 +224,7 @@ else{
           </Toolbar>
         </Container>
       {token&&
-        <Drawer  sx={{
-          "& .MuiDrawer-paper": {
-            top: "30px",
-            height: "calc(100% - 30px)"
-          }
-        }}
+        <Drawer  
   anchor="right"
   open={openCart}
   onClose={() => setOpenCart(false)}

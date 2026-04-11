@@ -18,11 +18,7 @@ export default function PromoBar() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      position: "fixed",
-      fontSize: "14px",
-      top: 0,
-      left: 0,
-      zIndex: 1400,       
+      position: "relative",
       fontSize: "14px"
     }}
   >

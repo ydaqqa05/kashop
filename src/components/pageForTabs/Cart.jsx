@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-import {Box,Typography,IconButton,Button,Divider,Paper,Radio,TextField,InputBase,} from "@mui/material";
-import money from '../../assets/image/money.svg'
+import {
+  Box,
+  Typography,
+  IconButton,
+  Button,
+  Divider,
+  Paper,
+  Radio,
+  InputBase,
+  Grid,
+} from "@mui/material";
+
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import CloseIcon from "@mui/icons-material/Close";
+
 import useCart from "../../hooks/useCart";
 import { useNavigate, useParams } from "react-router-dom";
 import useRemoveFromCart from "../../hooks/useRemoveFromCart";
@@ -11,231 +22,331 @@ import useUpdateCartItem from "../../hooks/useUpdateCartItem";
 import useProducts from "../../hooks/useProducts";
 
 export default function CartPage({ Checkout, setSelectedShipping }) {
-    const { data, isError, isLoading, error } = useCart();
-    const navigate = useNavigate()
-    const [localSelected, setLocalSelected] = useState(0);
-    const { mutate: removeItem, isPending } = useRemoveFromCart()
-    const { mutate: updateItem, isPending: updateItemPending } = useUpdateCartItem()
-    const { id } = useParams();
-    const { data: products } = useProducts(id);
-    const cartItems = data?.items?.map((item) => {
-        const product = products?.response?.data?.find(pro => (pro.id === item.productId));
-        return {
-            ...item,
+  const { data } = useCart();
+  const navigate = useNavigate();
+  const [localSelected, setLocalSelected] = useState(0);
 
-            name: product?.name,
-            image: product?.image,
-            price: product?.price
-        };
+  const { mutate: removeItem, isPending } = useRemoveFromCart();
+  const { mutate: updateItem, isPending: updateItemPending } =
+    useUpdateCartItem();
+
+  const { id } = useParams();
+  const { data: products } = useProducts(id);
+
+  const cartItems =
+    data?.items?.map((item) => {
+      const product = products?.response?.data?.find(
+        (pro) => pro.id === item.productId
+      );
+      return {
+        ...item,
+        name: product?.name,
+        image: product?.image,
+        price: product?.price,
+      };
     }) || [];
 
-    console.log(cartItems)
-    const handleRemoveItem = (productId) => {
-        const item = data.items.find((i) => {
-            return i.productId == productId;
-        });
-        removeItem(productId);
-    }
-    const handleUpdateQty = (productId, action) => {
-        { console.log(data) }
-        const item = data.items.find((i) => {
-            return i.productId == productId;
-        });
+  const handleRemoveItem = (productId) => {
+    removeItem(productId);
+  };
 
-        if (action == '-') {
-            updateItem({ productId, count: item.count - 1 })
-        }
-        else {
-            updateItem({ productId, count: item.count + 1 })
-        }
-    }
-    const shippingOptions = [
-        { label: "Free shipping", price: 0 },
-        { label: "Express shipping", price: 15 },
-        { label: "Pick Up", price: 21 },
-    ];
+  const handleUpdateQty = (productId, action) => {
+    const item = data.items.find((i) => i.productId == productId);
 
-    const selectedPrice = shippingOptions[localSelected].price;
-    return (
-        <Box px={8} py={6}>
-            <Box display="flex" gap={6} alignItems="flex-start">
-                <Box flex={1.5}>
+    if (action === "-") {
+      updateItem({ productId, count: item.count - 1 });
+    } else {
+      updateItem({ productId, count: item.count + 1 });
+    }
+  };
+
+  const shippingOptions = [
+    { label: "Free shipping", price: 0 },
+    { label: "Express shipping", price: 15 },
+    { label: "Pick Up", price: 21 },
+  ];
+
+  const selectedPrice = shippingOptions[localSelected].price;
+
+  return (
+    <Box px={{ xs: 2, md: 8 }} py={6}>
+      <Grid container spacing={4}>
+        <Grid item  size={{xs:12,md:8}} >
+          <Box display={{ xs: "none", md: "block" }}>
+
+            <Grid container sx={{ mb: 2, fontWeight: 600 }}>
+              <Grid item size={{xs:6}}>
+                <Typography>Product</Typography>
+              </Grid>
+              <Grid item size={{xs:2}}>
+                <Typography>Quantity</Typography>
+              </Grid>
+              <Grid item size={{xs:2}}>
+                <Typography>Price</Typography>
+              </Grid>
+              <Grid item size={{xs:2}}>
+                <Typography>Subtotal</Typography>
+              </Grid>
+            </Grid>
+
+            <Divider />
+
+            {cartItems.map((item) => (
+              <Grid
+                container
+                key={item.productId}
+                alignItems="center"
+                spacing={2}
+                sx={{ py: 3, borderBottom: "1px solid #eee" }}
+              >
+                <Grid item size={{xs:6}} sx={{ display: "flex", gap: 2 }}>
+                  <Box
+                    component="img"
+                    src={item.image}
+                    sx={{ width: 70, borderRadius: 2 }}
+                  />
+
+                  <Box>
+                    <Typography fontWeight={600}>{item.name}</Typography>
+
+                    <Typography fontSize="13px" color="#6C7275">
+                      Color: black
+                    </Typography>
+
                     <Box
-                        display="grid"
-                        gridTemplateColumns="2fr 1fr 1fr 1fr"
-                        mb={2}
-                        color="#121212"
-                        fontWeight={600}
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => handleRemoveItem(item.productId)}
                     >
-                        <Typography fontWeight={600}>Product</Typography>
-                        <Typography fontWeight={600}>Quantity</Typography>
-                        <Typography fontWeight={600}>Price</Typography>
-                        <Typography fontWeight={600}>Subtotal</Typography>
+                      <CloseIcon sx={{ fontSize: 16 }} />
+                      <Typography fontSize="13px">Remove</Typography>
                     </Box>
+                  </Box>
+                </Grid>
 
-                    <Divider />
-                    {cartItems?.map((item) => (
-                        <Box key={item.productId} py={3} borderBottom="1px solid #eee">
-
-                            <Box
-                                display="grid"
-                                gridTemplateColumns="2fr 1fr 1fr 1fr"
-                                alignItems="center"
-                            >
-                                <Box display="flex" gap={2}>
-                                    <Box
-                                        component="img"
-                                        src={item.image}
-                                        sx={{ width: 70, borderRadius: 2 }}
-                                    />
-
-                                    <Box>
-                                        <Typography fontWeight={600}>
-                                            {item.productName}
-                                        </Typography>
-
-                                        <Typography fontSize="13px" color="#6C7275">
-                                            Color: black
-                                        </Typography>
-
-                                        <Box display="flex" alignItems="center" mt={1} disabled={isPending} onClick={() => handleRemoveItem(item.productId)} sx={{ cursor: "pointer" }}>
-                                            <CloseIcon sx={{ fontSize: 16 }} />
-                                            <Typography fontSize="13px" ml={0.5}>
-                                                Remove
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                </Box>
-                                <Box>
-                                    <Box display="flex"
-                                        alignItems="center"
-                                        border="1px solid #E8ECEF"
-                                        borderRadius="6px"
-                                        width="fit-content"><IconButton size="small" disabled={updateItemPending} onClick={() => handleUpdateQty(item.productId, '-')}><RemoveIcon /></IconButton>
-                                        <Typography>{item.count}</Typography>
-                                        <IconButton size="small" disabled={updateItemPending} onClick={() => handleUpdateQty(item.productId, '+')}><AddIcon /></IconButton>
-                                    </Box>
-
-                                </Box>
-                                <Typography>
-                                    ${item.price.toFixed(2)}
-                                </Typography>
-                                <Typography fontWeight={600}>
-                                    ${item.totalPrice.toFixed(2)}
-                                </Typography>
-
-                            </Box>
-                        </Box>
-                    ))}
-                    <Box mt={6}>
-                        <Typography fontWeight={600}>
-                            Have a coupon?
-                        </Typography>
-
-                        <Typography color="#6C7275" fontSize="14px" mb={2}>
-                            Add your code for an instant cart discount
-                        </Typography>
-                        <Paper
-                            component="form"
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                width: 300,
-                                border: '1px solid #E0E0E0',
-                                borderRadius: '8px',
-                                p: '2px 4px'
-                            }}
-                            onSubmit={(e) => e.preventDefault()}
-                        >
-                            <InputBase
-                                sx={{ ml: 1, flex: 1 }}
-                                placeholder="Coupon Code"
-                                inputProps={{ 'aria-label': 'coupon code' }}
-                            />
-                            <Button
-                                type="submit"
-                                sx={{ borderLeft: '1px solid #E0E0E0', textTransform: 'none', color: "#000" }}
-                            >
-                                Apply
-                            </Button>
-                        </Paper>
-
-
-                    </Box>
-
-                </Box>
-                <Box flex={1}>
-                    <Paper
-                        sx={{
-                            p: 3,
-                            borderRadius: 3,
-                            border: "1px solid #E8ECEF",
-                        }}
+                <Grid item size={{xs:2}} >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      border: "1px solid #E8ECEF",
+                      borderRadius: "6px",
+                      width: "fit-content",
+                    }}
+                  >
+                    <IconButton
+                      size="small"
+                      disabled={updateItemPending}
+                      onClick={() => handleUpdateQty(item.productId, "-")}
                     >
-                        <Typography fontWeight={600} mb={2}>
-                            Cart summary
-                        </Typography>
+                      <RemoveIcon />
+                    </IconButton>
 
-                        {shippingOptions.map((opt, i) => (
-                            <Box
-                                key={i}
-                                onClick={() => {
-                                    setSelectedShipping(opt);
-                                    setLocalSelected(i); 
-                                  }}
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    border: "1px solid #E8ECEF",
-                                    borderRadius: "8px",
-                                    p: 1,
-                                    mb: 1,
-                                    cursor: "pointer",
-                                }}
-                            >
-                                <Box display="flex" alignItems="center">
-                                <Radio checked={localSelected === i} />
-                                    <Typography>{opt.label}</Typography>
-                                </Box>
+                    <Typography>{item.count}</Typography>
 
-                                <Typography>
-                                    {opt.price === 0 ? "$0.00" : `+$${opt.price}.00`}
-                                </Typography>
-                            </Box>
-                        ))}
+                    <IconButton
+                      size="small"
+                      disabled={updateItemPending}
+                      onClick={() => handleUpdateQty(item.productId, "+")}
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  </Box>
+                </Grid>
 
-                        <Divider sx={{ my: 2 }} />
-                        <Box display="flex" justifyContent="space-between">
-                            <Typography>Subtotal</Typography>
-                            <Typography>${data?.cartTotal.toFixed(2)}</Typography>
-                        </Box>
+                <Grid item size={{xs:2}}>
+                  <Typography>${item.price?.toFixed(2)}</Typography>
+                </Grid>
 
-                        <Box display="flex" justifyContent="space-between" mt={1}>
-                            <Typography fontWeight={600}>Total</Typography>
-                            <Typography fontWeight={600}>
-                                ${((data?.cartTotal / 2) + selectedPrice).toFixed(2)}
-                            </Typography>
-                        </Box>
+                <Grid item size={{xs:2}}>
+                  <Typography fontWeight={600}>
+                    ${item.totalPrice?.toFixed(2)}
+                  </Typography>
+                </Grid>
+              </Grid>
+            ))}
+          </Box>
 
-                        <Button
-                            onClick={Checkout}
-                            fullWidth
-                            sx={{
-                                mt: 3,
-                                background: "#000",
-                                color: "#fff",
-                                borderRadius: 2,
-                                py: 1.5,
-                                "&:hover": { background: "#333" },
-                            }}
-                        >
-                            Checkout
-                        </Button>
-                    </Paper>
+          <Box display={{ xs: "block", md: "none" }}>
+
+            <Typography fontWeight="bold" fontSize="22px" mb={2}>
+            Product
+            </Typography>
+
+            <Divider sx={{ mb: 2 }} />
+
+            {cartItems.map((item) => (
+              <Box
+                key={item.productId}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: "70px 1fr",
+                  gap: 2,
+                  mb: 3,
+                  borderBottom: "1px solid #eee",
+                  pb: 2,
+                }}
+              >
+                <Box
+                  component="img"
+                  src={item.image}
+                  sx={{ width: 60, height: 60, borderRadius: 2 }}
+                />
+
+                <Box>
+
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr auto",
+                    }}
+                  >
+                    <Typography fontSize="14px" fontWeight={600}>
+                      {item.name}
+                    </Typography>
+
+                    <Typography fontWeight={600}>
+                      ${item.price}
+                    </Typography>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr auto",
+                      mb: 1,
+                    }}
+                  >
+                    <Typography fontSize="12px" color="#6C7275">
+                      Color: Black
+                    </Typography>
+
+                    <IconButton
+                      size="small"
+                      onClick={() => handleRemoveItem(item.productId)}
+                    >
+                      ✕
+                    </IconButton>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      border: "1px solid #ddd",
+                      width: "fit-content",
+                      borderRadius: 1,
+                    }}
+                  >
+                    <IconButton
+                      size="small"
+                      onClick={() => handleUpdateQty(item.productId, "-")}
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+
+                    <Typography px={1}>{item.count}</Typography>
+
+                    <IconButton
+                      size="small"
+                      onClick={() => handleUpdateQty(item.productId, "+")}
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+
+          {/* COUPON */}
+          <Box mt={6}>
+            <Typography fontWeight={600}>Have a coupon?</Typography>
+
+            <Typography color="#6C7275" fontSize="14px" mb={2}>
+              Add your code for an instant cart discount
+            </Typography>
+
+            <Paper
+              component="form"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                width: 320,
+                border: "1px solid #E0E0E0",
+                borderRadius: "8px",
+              }}
+            >
+              <InputBase placeholder="Coupon Code" sx={{ ml: 1, flex: 1 }} />
+              <Button sx={{ color: "#000" }}>Apply</Button>
+            </Paper>
+          </Box>
+        </Grid>
+        <Grid item size={{xs:12,md:4}} >
+          <Paper sx={{ p: 3, borderRadius: 3, border: "1px solid #E8ECEF" }}>
+            <Typography fontWeight={600} mb={2}>
+              Cart summary
+            </Typography>
+
+            {shippingOptions.map((opt, i) => (
+              <Box
+                key={i}
+                onClick={() => {
+                  setSelectedShipping(opt);
+                  setLocalSelected(i);
+                }}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  border: "1px solid #E8ECEF",
+                  borderRadius: 2,
+                  p: 1.5,
+                  mb: 1,
+                  cursor: "pointer",
+                }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Radio checked={localSelected === i} />
+                  <Typography>{opt.label}</Typography>
                 </Box>
 
+                <Typography>
+                  {opt.price === 0 ? "$0.00" : `+$${opt.price}.00`}
+                </Typography>
+              </Box>
+            ))}
+
+            <Divider sx={{ my: 2 }} />
+
+            <Box display="flex" justifyContent="space-between">
+              <Typography>Subtotal</Typography>
+              <Typography>${data?.cartTotal?.toFixed(2)}</Typography>
             </Box>
-        </Box>
-    );
+
+            <Box display="flex" justifyContent="space-between" mt={1}>
+              <Typography fontWeight={600}>Total</Typography>
+              <Typography fontWeight={600}>
+                ${((data?.cartTotal || 0)/2 + selectedPrice).toFixed(2)}
+              </Typography>
+            </Box>
+
+            <Button
+              onClick={Checkout}
+              fullWidth
+              sx={{
+                mt: 3,
+                background: "#000",
+                color: "#fff",
+                borderRadius: 2,
+                py: 1.5,
+                "&:hover": { background: "#333" },
+              }}
+            >
+              Checkout
+            </Button>
+          </Paper>
+        </Grid>
+
+      </Grid>
+    </Box>
+  );
 }

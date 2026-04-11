@@ -7,6 +7,8 @@ import Checkout from "../../components/pageForTabs/Checkout";
 import { useLocation } from "react-router-dom";
 import OrderConfirmation from "../../components/pageForTabs/Complete";
 import Complete from "../../components/pageForTabs/Complete";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,66 +59,74 @@ const location=useLocation();
       {titles[value]}
       </Typography>
       <Tabs
-        value={value}
-        onChange={handleChange}
-        sx={{
-          "& .MuiTabs-indicator": {
-            backgroundColor: "black",
-            height: 2,
-          },
-        }}
-      >
-        {steps.map((step, index) => (
-          <Tab
-            key={index}
-            disableRipple
-            label={
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                
-                <Box
-                  sx={{
-                    width: 28,
-                    height: 28,
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 14,
-                    backgroundColor:
-                      index < value
-                        ? "#22c55e"
-                        : index === value
-                        ? "black"   
-                        : "#ccc",   
-                    color: "white",
-                  }}
-                >
-                  {index + 1}
-                </Box>
-                <Typography
-                  sx={{
-                    fontSize: 14,
-                    color:
-                      index < value
-                        ? "#22c55e"
-                        : index === value
-                        ? "black"
-                        : "#B1B5C3",
-                  }}
-                >
-                  {step.label}
-                </Typography>
-              </Box>
-            }
+  value={value}
+  onChange={handleChange}
+  variant="scrollable"
+  scrollButtons={false}
+  allowScrollButtonsMobile
+  sx={{
+    width: "100%",
+    "& .MuiTabs-indicator": {
+      backgroundColor: "black",
+      height: 2,
+    },
+    "& .MuiTabs-flexContainer": {
+      justifyContent: { xs: "flex-start", md: "center" },
+      gap: 2,
+    },
+  }}
+>
+  {steps.map((step, index) => (
+    <Tab
+      key={index}
+      disableRipple
+      label={
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box
             sx={{
-              textTransform: "none",
-              minHeight: 60,
-              alignItems: "flex-start",
-              mr: 4,
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 14,
+              backgroundColor:
+                index < value
+                  ? "#22c55e"
+                  : index === value
+                  ? "black"
+                  : "#ccc",
+              color: "white",
             }}
-          />
-        ))}
-      </Tabs>
+          >
+            {index + 1}
+          </Box>
+
+          <Typography
+            sx={{
+              fontSize: 14,
+              whiteSpace: "nowrap",
+              color:
+                index < value
+                  ? "#22c55e"
+                  : index === value
+                  ? "black"
+                  : "#B1B5C3",
+            }}
+          >
+            {step.label}
+          </Typography>
+        </Box>
+      }
+      sx={{
+        textTransform: "none",
+        minHeight: 60,
+        flexShrink: 0,
+      }}
+    />
+  ))}
+</Tabs>
       <Box sx={{ width: "100%",  maxWidth: "1200px", mx: "auto"}}>
         
         <CustomTabPanel value={value} index={0}>
