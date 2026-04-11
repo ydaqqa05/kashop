@@ -113,7 +113,7 @@ const handleSubmit = () => {
           <Tab label="Account" />
           <Tab label="Address" />
           <Tab label="Orders" />
-          <Tab label="Wishlist" />
+        
           <Tab label="Log Out" />
         </Tabs>
       </Paper>
@@ -277,8 +277,8 @@ const handleSubmit = () => {
         borderRadius: 2,
       }}
       onClick={() => {
-        localStorage.removeItem("accessToken"); // إزالة التوكن
-        navigate("/login"); // إعادة التوجيه لصفحة تسجيل الدخول
+        localStorage.removeItem("accessToken"); 
+        navigate("/login"); 
       }}
     >
       Log Out

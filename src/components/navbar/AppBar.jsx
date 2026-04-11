@@ -15,6 +15,7 @@ import useRemoveFromCart from "../../hooks/useRemoveFromCart";
 import useUpdateCartItem from "../../hooks/useUpdateCartItem";
 import Loader from "../../ui/loader/Loader";
 import Search from "../searchBar/Search";
+import { useAuthStore } from "../../store/useAuthStore";
 const pages = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
@@ -25,10 +26,13 @@ const pages = [
 export default function ResponsiveAppBar() {
     const navigate=useNavigate()
     const {id}=useParams();
+    const token =useAuthStore((state)=>state.token)
     const [open, setOpen] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCart, setOpenCart] = useState(false);
-  const {data,isError,isLoading,error}=useCart();
+  const {data,isError,isLoading,error}=useCart({
+    enabled: !!token
+  });
   const{mutate:removeItem,isPending}=useRemoveFromCart()
 console.log("cart data",data)
 const { data: products } = useProducts(id); 
@@ -48,14 +52,14 @@ const cartItems=data?.items?.map((item)=>{
 console.log(cartItems)
 
   const handleRemoveItem=(productId)=>{
-    const item=data.items.find((i)=>{
+    const item=data?.items?.find((i)=>{
       return i.productId==productId;
     }); 
     removeItem(productId);
   }
   const handleUpdateQty=(productId,action)=>{ {console.log(data)}
   
-const item=data.items.find((i)=>{
+const item=data?.items?.find((i)=>{
   return i.productId==productId;
 });
 if(action=='-'){
@@ -65,9 +69,7 @@ else{
   updateItem({productId,count:item.count+1})
 }
   }
-  if(isLoading)
-     return <Loader/>
-  if(isError)
+  if(token&&isError)
      return <Box color={'red'}>{error.message}</Box>
   
    
@@ -142,53 +144,100 @@ else{
               ))}
             </Box>
 
-           
-            <Box
-              sx={{
-                flex: 1,
-                display: "flex",
-                justifyContent: "flex-end",
-                gap: 1
-              }}
-            >
-               <Box sx={{ position: 'relative' }}>
-  <ClickAwayListener onClickAway={() => setOpen(false)}>
-    <div>
-      <IconButton onClick={() => setOpen(!open)}>
-        <Box component="img" src={search} />
+            {token ? (
+  <>
+    <Box
+      sx={{
+        flex: 1,
+        display: "flex",
+        justifyContent: "flex-end",
+        gap: 1
+      }}
+    >
+      {/* search */}
+      <Box sx={{ position: 'relative' }}>
+        <ClickAwayListener onClickAway={() => setOpen(false)}>
+          <div>
+            <IconButton onClick={() => setOpen(!open)}>
+              <Box component="img" src={search} />
+            </IconButton>
+            {open && <Search />}
+          </div>
+        </ClickAwayListener>
+      </Box>
+      <IconButton onClick={() => navigate('/profile')}>
+        <Box component={'img'} src={profile} />
       </IconButton>
-      {open && (
-       <Search/>
-      )}
-    </div>
-  </ClickAwayListener>
-</Box>
-
-              <IconButton onClick={()=>navigate('/profile')}>
-              <Box component={'img'} src={profile}  />
-              </IconButton>
-
-              <IconButton sx={{ display: 'flex', gap: 2 }} onClick={() => setOpenCart(true)}>
-  <Box component={'img'} src={cart} />
-  <Badge
-    badgeContent={data?.items?.length}
+      <IconButton
+        sx={{ display: 'flex', gap: 2 }}
+        onClick={() => setOpenCart(true)}
+      >
+        <Box component={'img'} src={cart} />
+        <Badge
+          badgeContent={data?.items?.length || 0}
+          sx={{
+            "& .MuiBadge-badge": {
+              backgroundColor: "black",
+              color: "white",
+            }
+          }}
+        />
+      </IconButton>
+    </Box>
+  </>
+) : (
+  <Box
     sx={{
-      "& .MuiBadge-badge": {
-        backgroundColor: "black",
-        color: "white",
-      }
+      flex: 1,
+      display: "flex",
+      justifyContent: "flex-end",
+      gap: 2
     }}
-  />
-</IconButton>        
-            </Box>
+  >
+    <Button
+      onClick={() => navigate('/login')}
+      sx={{
+        textTransform: "none",
+        color: "#000",
+        fontWeight: 600
+      }}
+    >
+      Login
+    </Button>
+
+    <Button
+      variant="contained"
+      onClick={() => navigate('/register')}
+      sx={{
+        textTransform: "none",
+        backgroundColor: "black",
+        color: "#fff",
+        borderRadius: "8px",
+        px: 2,
+        "&:hover": { backgroundColor: "#333" }
+      }}
+    >
+      Sign Up
+    </Button>
+  </Box>
+)}
+            
           </Toolbar>
         </Container>
-        <Drawer
+      {token&&
+        <Drawer  sx={{
+          "& .MuiDrawer-paper": {
+            top: "30px",
+            height: "calc(100% - 30px)"
+          }
+        }}
   anchor="right"
   open={openCart}
   onClose={() => setOpenCart(false)}
 >
+
   <Box sx={{ width: 350, p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
+  
     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
       <Typography fontWeight="bold" fontSize="24px">Cart</Typography>
       <IconButton onClick={() => setOpenCart(false)}>
@@ -247,7 +296,7 @@ else{
               > 
              
              <IconButton size="small" disabled={updateItemPending} onClick={()=>handleUpdateQty(item.productId,'-')}><RemoveIcon/></IconButton>
-                <Typography px={1}>{item.count}</Typography>
+                <Typography px={1}>{item?.count}</Typography>
                 <IconButton size="small" disabled={updateItemPending} onClick={()=>handleUpdateQty(item.productId,'+')}><AddIcon/></IconButton>
               </Box>
             </Box>
@@ -265,7 +314,7 @@ else{
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
         <Typography>Subtotal</Typography>
         <Typography fontWeight="bold">
-          ${data.cartTotal}
+          ${data?.cartTotal||0}
           
         </Typography>
       </Box>
@@ -288,6 +337,7 @@ else{
 
   </Box>
 </Drawer>
+}
       </AppBar>
 
       
