@@ -10,7 +10,7 @@ export default function Features() {
     <Container maxWidth="md">
     <Box mb={"48px"}>
       <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item size={{xs:12,sm:6,md:3}}>
           <Box
             sx={{
               backgroundColor: '#F3F5F7',
@@ -33,7 +33,7 @@ export default function Features() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item size={{xs:12,sm:6,md:3}}>
           <Box
             sx={{
               backgroundColor: '#F3F5F7',
@@ -55,7 +55,7 @@ export default function Features() {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item size={{xs:12,sm:6,md:3}}>
           <Box
             sx={{
               backgroundColor: '#F3F5F7',
@@ -77,7 +77,7 @@ export default function Features() {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item size={{xs:12,sm:6,md:3}}>
           <Box
             sx={{
               backgroundColor: '#F3F5F7',
