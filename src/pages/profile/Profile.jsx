@@ -18,6 +18,7 @@ import useForgetPassword from "../../hooks/useForgetPassword";
 import { useNavigate } from "react-router-dom";
 import useChangePassword from "../../hooks/useChangePassword";
 import useChangeEmail from "../../hooks/useEmailPassword";
+import { useAuthStore } from "../../store/useAuthStore";
 
 function TabPanel({ children, value, index }) {
   return value === index && <Box sx={{ mt: 3 }}>{children}</Box>;
@@ -30,7 +31,7 @@ export default function MyAccount() {
   const { mutate: changeEmail } = useChangeEmail();
   const { mutate: sendCode } = useForgetPassword();
   const navigate = useNavigate();
-
+  const logout = useAuthStore((state) => state.logout);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -292,7 +293,7 @@ export default function MyAccount() {
         borderRadius: 2,
       }}
       onClick={() => {
-        localStorage.removeItem("accessToken"); 
+        logout();
         navigate("/login"); 
       }}
     >
