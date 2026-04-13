@@ -19,7 +19,7 @@ console.log(data)
   if (isError) return <Box color="red">{error.message}</Box>;
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
     <Box className="products" >
       <Box sx={{ display: "flex", flexDirection: "column", my: "48px",gap:'-2px' }}>
         <Typography fontSize={"40px"} fontWeight={"bold"} fontFamily={'Poppins'}  lineHeight={1.1} letterSpacing={'-0.4px'}>

@@ -7,7 +7,7 @@ import call from '../../assets/image/call.svg';
 
 export default function Features() {
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
     <Box mb={"48px"}>
       <Grid container spacing={2} justifyContent="center">
         <Grid item size={{xs:12,sm:6,md:3}}>

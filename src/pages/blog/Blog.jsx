@@ -30,7 +30,7 @@ export default function Blog() {
 
   return (
     <>
-    <Container maxWidth="md" sx={{mb:4}} >
+    <Container maxWidth="lg" sx={{mb:4}} >
       <Box 
         sx={{backgroundImage: `url(${blogImg})`,backgroundSize: "cover", backgroundPosition: "right center",
           backgroundRepeat: "no-repeat",height: "300px",display: "flex",flexDirection: "column",alignItems: "center", justifyContent: "center",textAlign: "center", px: 2, mb: "60px",}}>

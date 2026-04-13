@@ -79,14 +79,14 @@ else{
 
   return (
     <>
-    
+    <Container maxWidth='lg'>
       <AppBar
         position="static"
         sx={{
           background: "#fff",
           color: "#000",
           boxShadow: "none",
-          borderBottom: "1px solid #eee",
+         
        
         }}
       >
@@ -401,6 +401,7 @@ else{
           </List>
         </Box>
       </Drawer>
+      </Container>
     </>
   );
 }

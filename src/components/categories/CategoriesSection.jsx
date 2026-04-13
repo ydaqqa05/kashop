@@ -24,7 +24,7 @@ const imgs=[elec1,mobile,clothes]
  console.log(categories)
   return (<>
   
-  <Container maxWidth="md">
+  <Container maxWidth="lg">
 
     <Box className="categories" pt={4} maxWidth="1200px" mx="auto" > 
       <Grid container spacing={2}>

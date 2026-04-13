@@ -16,8 +16,6 @@ import Footer2 from "../../components/footer/Footer2";
             </Link>
             <Typography color="text.primary">Contact Us</Typography>
           </Breadcrumbs>
-  
-          {/* HERO */}
           <Box maxWidth="800px" mb={8}>
             <Typography
               sx={{

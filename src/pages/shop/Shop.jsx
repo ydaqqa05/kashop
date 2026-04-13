@@ -113,7 +113,7 @@ export default function Shop() {
 
   return (
     <>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Box
           sx={{ backgroundImage: `url(${shopImage})`,backgroundSize: "cover", backgroundPosition: "right center", backgroundRepeat: "no-repeat",
             height: "300px",display: "flex",flexDirection: "column",alignItems: "center",justifyContent: "center",textAlign: "center",px: 2,mb: "60px", }}>

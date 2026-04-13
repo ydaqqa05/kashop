@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div>
       <Swipper />
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
       <Box
   sx={{
     display: 'flex',

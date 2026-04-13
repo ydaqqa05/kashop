@@ -23,7 +23,7 @@ const slides = [
 export default function MyCarousel() {
   const navigate=useNavigate()
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
     <Box sx={{position: "relative",maxWidth: "1200px",mx: "auto",height: { xs: 400, md: 500 }
       }}
     >
