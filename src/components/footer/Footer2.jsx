@@ -9,7 +9,6 @@ export default function Footer2() {
   const links = [
     { label: "Home", path: "/" },
     { label: "Shop", path: "/shop" },
-    { label: "Product", path: "/product" },
     { label: "Blog", path: "/blog" },
     { label: "Contact Us", path: "/contact" },
   ];
