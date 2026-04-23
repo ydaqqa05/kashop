@@ -71,15 +71,13 @@ export default function MyAccount() {
     }
 
     if (form.newPassword) {
-      sendCode(form.email, {
-        onSuccess: () => {
+      
           changePassword({
             CurrentPassword: form.oldPassword,
             NewPassword: form.newPassword,
             ConfirmNewPassword: form.confirmPassword,
           });
-        },
-      });
+      
     }
     navigate('/login')
   };
